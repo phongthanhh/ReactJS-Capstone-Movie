@@ -1,11 +1,11 @@
 import React from 'react';
 
-const ShowTime = () => {
+const Home = () => {
     return (
         <div>
-            ShowTime
+            Home
         </div>
     );
 }
 
-export default ShowTime;
+export default Home;

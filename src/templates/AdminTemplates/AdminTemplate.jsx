@@ -1,15 +1,22 @@
 import { useState } from 'react';
-import { Route, Router } from 'react-router'
-import { Row, Col } from 'antd'
+import { Redirect, Route, Router } from 'react-router'
+import { NavLink } from 'react-router-dom';
+import { Row, Col, SubMenu } from 'antd'
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     UploadOutlined,
     UserOutlined,
     VideoCameraOutlined,
+    FileAddOutlined
 } from '@ant-design/icons';
 
+
+
+
 import { Layout, Menu, theme } from 'antd';
+import { USER_LOGIN } from '../../util/settings';
+import { history } from '../../App';
 
 
 const { Header, Sider, Content } = Layout;
@@ -18,9 +25,13 @@ export default function AdminTemplate(props) {
 
     const [collapsed, setCollapsed] = useState(false);
 
+    if (!localStorage.getItem(USER_LOGIN)) {
+        alert('bạn k có quyền truy cập trang này')
+        return <Redirect to='/' />
+    }
+
     return <Route path={props.path} render={(propsRoute) => {
         return <>
-
             <Layout>
                 <Sider trigger={null} collapsible collapsed={collapsed}>
                     <div className="logo" />
@@ -28,31 +39,21 @@ export default function AdminTemplate(props) {
                         theme="dark"
                         mode="inline"
                         defaultSelectedKeys={['1']}
-                        items={[
-                            {
-                                key: '1',
-                                icon: <UserOutlined />,
-                                label: 'nav 1',
-                            },
-                            {
-                                key: '2',
-                                icon: <VideoCameraOutlined />,
-                                label: 'nav 2',
-                            },
-                            {
-                                key: '3',
-                                icon: <UploadOutlined />,
-                                label: 'nav 3',
-                            },
-                        ]}
-                    />
+                    >
+                        <Menu.Item key='1' icon={<UserOutlined />}>
+                            <NavLink to='/admin/users'>User</NavLink>
+                        </Menu.Item>
+
+                        <Menu.Item key='2' icon={<FileAddOutlined />}>
+                            <NavLink to='/admin/films'>Films</NavLink>
+                        </Menu.Item>
+                        <Menu.Item key='3' icon={<UserOutlined />}>
+                            <NavLink to='/admin/showtimes'>Showtimes</NavLink>
+                        </Menu.Item>
+                    </Menu>
                 </Sider>
                 <Layout className="site-layout">
                     <Header >
-                        {/* {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-                            className: 'trigger',
-                            onClick: () => setCollapsed(!collapsed),
-                        })} */}
                         {collapsed ? <MenuUnfoldOutlined style={{ color: 'white' }} onClick={() => {
                             setCollapsed(!collapsed)
                         }} /> : <MenuFoldOutlined style={{ color: 'white' }} onClick={() => {
@@ -73,10 +74,7 @@ export default function AdminTemplate(props) {
                     </Content>
                 </Layout>
             </Layout>
-
-
         </>
-
     }}
     />
 }
