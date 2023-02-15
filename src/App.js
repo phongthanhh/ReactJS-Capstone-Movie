@@ -12,6 +12,10 @@ import { loginService } from './services/baseService';
 import { ACCESS_TOKEN, USER_LOGIN } from './util/settings';
 import Home from './pages/Home/Home';
 import AddNewFilm from './pages/Admin/Films/AddNewFilm/AddNewFilm';
+import EditFilm from './pages/Admin/Films/EditFilm/EditFilm';
+import User from './pages/Admin/User/User';
+import AddNewUser from './pages/Admin/User/addNewUser/AddNewUser';
+import EditUser from './pages/Admin/User/editUser/EditUser';
 
 
 
@@ -22,8 +26,8 @@ function App() {
   //! Đăng nhập sau khi load ứng dụng. Xóa sau
   useEffect(() => {
     const payload = {
-      "taiKhoan": "phongthanh2",
-      "matKhau": "123123Bin"
+      "taiKhoan": "1string11",
+      "matKhau": "123789456 "
     };
 
     loginService(payload).then((res) => {
@@ -40,9 +44,13 @@ function App() {
         {/* ADmin */}
         <AdminTemplate path='/admin' exact component={Dashboard} />
         <AdminTemplate path='/admin/films' exact component={Films} />
-        <AdminTemplate path='/admin/users' exact component={Dashboard} />
+        <AdminTemplate path='/admin/users' exact component={User} />
         <AdminTemplate path='/admin/showtimes' exact component={ShowTimes} />
-        <AdminTemplate path='/admin/film/add-new-film' exact component={AddNewFilm} />
+        <AdminTemplate path='/admin/films/add-new-film' exact component={AddNewFilm} />
+        <AdminTemplate path='/admin/films/edit/:id' exact component={EditFilm} />
+
+        <AdminTemplate path='/admin/users/add-new-user' exact component={AddNewUser} />
+        <AdminTemplate path='/admin/users/edit-user/:id' exact component={EditUser} />
 
       </Switch>
     </Router>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFilmAction } from '../../../redux/action/movieManagerAction';
+import { delFilmAction, getFilmAction } from '../../../redux/action/movieManagerAction';
 import { NavLink } from 'react-router-dom';
 import {
     EditOutlined,
@@ -46,7 +46,7 @@ const Films = (props) => {
         {
             title: 'Tên Phim',
             dataIndex: 'tenPhim',
-            defaultSortOrder: 'descend',
+            defaultSortOrder: 'ascend',
             sorter: (a, b) => {
                 const tenPhimA = a.tenPhim.toLowerCase().trim()
                 const tenPhimB = b.tenPhim.toLowerCase().trim()
@@ -77,14 +77,20 @@ const Films = (props) => {
         },
         {
             title: 'Action',
-            dataIndex: 'Action',
+            dataIndex: 'maPhim',
             render: (text, film) => {
                 return < >
-                    <NavLink className='mr-2' to='/' ><EditOutlined /></NavLink>
-                    <NavLink className='mr-2' to='/' style={{ color: 'red' }}><DeleteOutlined /></NavLink>
+                    <NavLink className='mr-2' to={`/admin/films/edit/${film.maPhim}`} ><EditOutlined /></NavLink>
+                    <Button onClick={() => {
+                        if (window.confirm(`bạn có muốn xóa ${film.tenPhim}`)) {
+                            dispatch(delFilmAction(film.maPhim))
+                        }
+
+                    }} className='mr-2' style={{ color: 'red' }}><DeleteOutlined /></Button>
                 </>
             },
-            width: '20%'
+            width: '20%',
+            align: 'center'
         }
 
     ];
@@ -97,7 +103,7 @@ const Films = (props) => {
         <div className='container'>
             <h2>Movie Manager</h2>
             <Button onClick={() => {
-                props.history.push('/admin/film/add-new-film')
+                props.history.push('/admin/films/add-new-film')
             }} className='mb-3' type="primary" danger size={size}> Add New Film</Button>
             <Table columns={columns} dataSource={data} onChange={onChange} />;
         </div>

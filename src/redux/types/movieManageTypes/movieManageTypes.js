@@ -1,1 +1,2 @@
 export const GET_LIST_FILMS = 'GET_LIST_FILMS'
+export const SET_FILM_DETAIL = 'SET_FILM_DETAIL'
