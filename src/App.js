@@ -45,12 +45,14 @@ function App() {
         <AdminTemplate path='/admin' exact component={Dashboard} />
         <AdminTemplate path='/admin/films' exact component={Films} />
         <AdminTemplate path='/admin/users' exact component={User} />
-        <AdminTemplate path='/admin/showtimes' exact component={ShowTimes} />
+        <AdminTemplate path='/admin/showtimes/:idFilm' exact component={ShowTimes} />
         <AdminTemplate path='/admin/films/add-new-film' exact component={AddNewFilm} />
         <AdminTemplate path='/admin/films/edit/:id' exact component={EditFilm} />
 
         <AdminTemplate path='/admin/users/add-new-user' exact component={AddNewUser} />
         <AdminTemplate path='/admin/users/edit-user/:id' exact component={EditUser} />
+
+
 
       </Switch>
     </Router>

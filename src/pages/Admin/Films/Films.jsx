@@ -7,7 +7,8 @@ import {
     EditOutlined,
     DeleteOutlined,
     PlusOutlined,
-    DownloadOutlined
+    DownloadOutlined,
+    CalendarOutlined
 } from '@ant-design/icons';
 import { Button, } from 'antd';
 
@@ -81,12 +82,14 @@ const Films = (props) => {
             render: (text, film) => {
                 return < >
                     <NavLink className='mr-2' to={`/admin/films/edit/${film.maPhim}`} ><EditOutlined /></NavLink>
-                    <Button onClick={() => {
+
+                    <span onClick={() => {
                         if (window.confirm(`bạn có muốn xóa ${film.tenPhim}`)) {
                             dispatch(delFilmAction(film.maPhim))
                         }
 
-                    }} className='mr-2' style={{ color: 'red' }}><DeleteOutlined /></Button>
+                    }} className='mr-2' style={{ color: 'red', cursor: 'pointer' }}><DeleteOutlined /></span>
+                    <NavLink className='mr-2' to={`/admin/showtimes/${film.tenPhim}`} ><CalendarOutlined /></NavLink>
                 </>
             },
             width: '20%',

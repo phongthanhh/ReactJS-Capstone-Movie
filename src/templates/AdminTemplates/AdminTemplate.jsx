@@ -5,10 +5,9 @@ import { Row, Col, SubMenu } from 'antd'
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
-    UploadOutlined,
     UserOutlined,
     VideoCameraOutlined,
-    FileAddOutlined
+    CalendarOutlined
 } from '@ant-design/icons';
 
 
@@ -43,10 +42,10 @@ export default function AdminTemplate(props) {
                         <Menu.Item key='1' icon={<UserOutlined />}>
                             <NavLink to='/admin/users'>User</NavLink>
                         </Menu.Item>
-                        <Menu.Item key='2' icon={<FileAddOutlined />}>
+                        <Menu.Item key='2' icon={<VideoCameraOutlined />}>
                             <NavLink to='/admin/films'>Films</NavLink>
                         </Menu.Item>
-                        <Menu.Item key='3' icon={<UserOutlined />}>
+                        <Menu.Item key='3' icon={<CalendarOutlined />}>
                             <NavLink to='/admin/showtimes'>Showtimes</NavLink>
                         </Menu.Item>
                     </Menu>

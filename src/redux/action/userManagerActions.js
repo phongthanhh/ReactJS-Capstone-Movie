@@ -1,6 +1,6 @@
 import axios from "axios"
 import { history } from "../../App";
-import { addUserService, getListUserService, getUserDetailService, updateUserService } from "../../services/userManagerServices";
+import { addUserService, delUserService, getListUserService, getUserDetailService, updateUserService } from "../../services/userManagerServices";
 import { GET_LIST_USER, SET_USER_DETAIL } from "../types/UserManagerTypes/userManagerTypes";
 
 
@@ -20,7 +20,7 @@ export const getListUserAction = () => {
     }
 }
 
-export const addtUserAction = (data) => {
+export const addtUserAction = data => {
     return async dispatch => {
         try {
             const result = await addUserService(data)
@@ -32,7 +32,7 @@ export const addtUserAction = (data) => {
     }
 }
 
-export const getUserDetailAction = (data) => {
+export const getUserDetailAction = data => {
     return async dispatch => {
         try {
             const result = await getUserDetailService(data)
@@ -46,12 +46,25 @@ export const getUserDetailAction = (data) => {
     }
 }
 
-export const updateUserAction = (data) => {
+export const updateUserAction = data => {
     return async dispatch => {
         try {
             const result = await updateUserService(data)
             console.log(result.data.content)
             alert('success')
+
+        } catch (error) {
+            console.log(error.response?.data)
+        }
+    }
+}
+
+export const delUserAction = data => {
+    return async dispatch => {
+        try {
+            const result = await delUserService(data)
+            console.log(result.data.content)
+            alert('del success')
 
         } catch (error) {
             console.log(error.response?.data)

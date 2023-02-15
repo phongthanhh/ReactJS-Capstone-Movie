@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Table } from 'antd';
 import { useEffect } from 'react';
-import { getListUserAction } from '../../../redux/action/userManagerActions';
+import { delUserAction, getListUserAction } from '../../../redux/action/userManagerActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -72,9 +72,11 @@ const User = (props) => {
             render: (text, user) => {
                 return <>
                     <NavLink className='mr-2' to={`/admin/users/edit-user/${user.taiKhoan}`} ><EditOutlined /></NavLink>
-                    <NavLink to='' onClick={() => {
-                        alert('hi')
-                    }} style={{ color: 'red' }}><DeleteOutlined /></NavLink>
+                    <span onClick={() => {
+                        if (window.confirm(`Bạn có muốn xóa ${user.taiKhoan}`)) {
+                            dispatch(delUserAction(user.taiKhoan))
+                        }
+                    }} style={{ color: 'red', cursor: 'pointer' }}><DeleteOutlined /></span>
                 </>
             }
         },

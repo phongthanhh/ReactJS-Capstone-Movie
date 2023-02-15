@@ -1,97 +1,153 @@
 import React, { useState } from 'react';
 import { FileOutlined, PieChartOutlined, UserOutlined, DesktopOutlined, TeamOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Breadcrumb, Select, Layout, Menu, theme, DatePicker } from 'antd';
 import { NavLink } from 'react-router-dom';
 import { history } from '../../../App';
+import { Formik, useFormik } from 'formik';
+import * as Yup from 'yup';
+import { GROUP_ID } from '../../../util/settings';
+import {
+    Form,
+    Input,
+    InputNumber
+} from 'antd';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
 
 const { Header, Content, Footer, Sider } = Layout;
 
 
-function getItem(label, key, icon, children) {
-    return {
-        key,
-        icon,
-        children,
-        label,
-    };
-}
-const items = [
-    getItem('Option 1', '1', <PieChartOutlined />),
-    getItem('User', 'sub1', <UserOutlined />, [
-        getItem('Tom', '/home'),
-        getItem('Bill', '/admin/films'),
-    ]),
-    getItem('Files', '9', <FileOutlined />),
-];
+
 
 const ShowTimes = () => {
 
-    const onChangeMenu = ({ key }) => {
-        if (key === '/home' || key === '/admin/films') {
-            history.push(key)
-        }
+    const [componentSize, setComponentSize] = useState('default');
+    const onFormLayoutChange = ({ size }) => {
+        setComponentSize(size);
+    };
+
+    const handleChangeSelected = (value) => {
+
+        console.log(`selected ${value}`);
+        formik.setFieldValue('maLoaiNguoiDung', value)
     }
 
-    const [collapsed, setCollapsed] = useState(false);
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
+    const formik = useFormik({
+        initialValues: {
+            taiKhoan: "",
+            matKhau: "",
+            email: "",
+            soDT: "",
+            maLoaiNguoiDung: "",
+            hoTen: "",
+            maNhom: GROUP_ID
+
+        },
+        // validationSchema: Yup.object({
+        //     taiKhoan: Yup.string().min(MIN_CHAR, `Must be ${MIN_CHAR} characters or more`)
+        //         .max(MAX_CHAR, `Must be ${MAX_CHAR} characters or less`)
+        //         .required('Required'),
+        //     matKhau: Yup.string().min(MIN_CHAR, `Must be ${MIN_CHAR} characters or more`).max(MAX_CHAR, `Must be ${MAX_CHAR} characters or less`).required('Required'),
+        //     email: Yup.string().email('Invalid email address').required('Required'),
+        //     soDT: Yup.string().required('Required'),
+        //     hoTen: Yup.string().required('Required'),
+        // })
+        // ,
+        onSubmit: values => {
+            if (values.maLoaiNguoiDung === '') {
+                values.maLoaiNguoiDung = 'KhachHang'
+            }
+            console.log(values)
+
+
+        }
+    })
+
     return (
         <div className='container'>
-            <Layout
+            <h2>Show Times</h2>
+            <img src="https://thuvienanime.com/wp-content/uploads/2021/09/nha-phi.jpeg" style={{ width: 200, height: 200 }} alt="" />
+            <Form className='mt-3'
+                onSubmitCapture={formik.handleSubmit}
+                labelCol={{
+                    span: 4,
+                }}
+                wrapperCol={{
+                    span: 14,
+                }}
+                layout="horizontal"
+                initialValues={{
+                    size: componentSize,
+                }}
+                onValuesChange={onFormLayoutChange}
+                size={componentSize}
                 style={{
-                    minHeight: '100vh',
+                    maxWidth: 600,
                 }}
             >
-                <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-                    <div
+
+
+                <Form.Item label="Hệ thống rạp">
+                    <Select
+                        defaultValue="KhachHang"
                         style={{
-                            height: 32,
-                            margin: 16,
-                            background: 'rgba(255, 255, 255, 0.2)',
+                            width: 120,
+                        }}
+                        onChange={handleChangeSelected}
+                        options={[
+                            {
+                                value: 'KhachHang',
+                                label: 'User',
+                            },
+                            {
+                                value: 'QuanTri',
+                                label: 'Admin',
+                            },
+                        ]}
+                    />
+                </Form.Item>
+
+                <Form.Item label="Cụm rạp">
+                    <Select
+                        defaultValue="KhachHang"
+                        style={{
+                            width: 120,
+                        }}
+                        onChange={handleChangeSelected}
+                        options={[
+                            {
+                                value: 'KhachHang',
+                                label: 'User',
+                            },
+                            {
+                                value: 'QuanTri',
+                                label: 'Admin',
+                            },
+                        ]}
+                    />
+                </Form.Item>
+
+                <Form.Item label="Ngày chiếu giờ chiếu">
+                    <DatePicker
+                        format="YYYY-MM-DD HH:mm:ss"
+                        showTime={{
+                            defaultValue: dayjs('00:00:00', 'HH:mm:ss'),
                         }}
                     />
-                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} onClick={onChangeMenu} />
-                </Sider>
-                <Layout className="site-layout">
-                    <Header
-                        style={{
-                            padding: 0,
-                            background: colorBgContainer,
-                        }}
-                    />
-                    <Content
-                        style={{
-                            margin: '0 16px',
-                        }}
-                    >
-                        <Breadcrumb
-                            style={{
-                                margin: '16px 0',
-                            }}
-                        >
-                            <Breadcrumb.Item>User</Breadcrumb.Item>
-                            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                        </Breadcrumb>
-                        <div
-                            style={{
-                                padding: 24,
-                                minHeight: 360,
-                                background: colorBgContainer,
-                            }}
-                        >
-                            Bill is a cat.
-                        </div>
-                    </Content>
-                    <Footer
-                        style={{
-                            textAlign: 'center',
-                        }}
-                    >
-                        Ant Design ©2023 Created by Ant UED
-                    </Footer>
-                </Layout>
-            </Layout>
+                </Form.Item>
+
+                <Form.Item label="Giá vé">
+                    <InputNumber min={75000} max={150000} />
+                    {formik.errors.soDT ? (
+                        <div className='alert alert-danger mt-2 p-1'>{formik.errors.soDT}</div>
+                    ) : null}
+                </Form.Item>
+
+                <Form.Item >
+                    <button type='submit' className='btn btn-info'>Tạo Lịch chiếu</button>
+                </Form.Item>
+            </Form>
         </div>
     );
 }
