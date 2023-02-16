@@ -74,7 +74,7 @@ export default function AdminTemplate(props) {
               }}
             >
               <Row>
-                <component {...propsRoute} />
+                <props.component {...propsRoute} />
               </Row>
             </Content>
           </Layout>
