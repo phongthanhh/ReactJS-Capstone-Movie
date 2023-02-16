@@ -5,7 +5,7 @@ export const getAllMovieService = () => get(`api/QuanLyPhim/LayDanhSachPhim?maNh
 
 export const addNewMovieService = (formData) => post('api/QuanLyPhim/ThemPhimUploadHinh', formData)
 
-export const delMovieService = (movieCode) => del(`api/QuanLyPhim/XoaPhim?MaPhim=${movieCode}`)
+export const delMovieService = (movieCode) => del(`api/QuanLyPhim/XP?MaPhim==${movieCode}`)
 
 export const getFilmDetailService = (movieCode) => get(`api/QuanLyPhim/LayThongTinPhim?MaPhim=${movieCode}`)
 

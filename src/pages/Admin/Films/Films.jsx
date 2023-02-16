@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import { Table, Button } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,12 +25,6 @@ function Films({ history }) {
   useEffect(() => {
     dispatch(getFilmAction())
   }, [])
-
-  const handleDeleteFilm = (film) => {
-    if (window.confirm(`bạn có muốn xóa ${film.tenPhim}`)) {
-      dispatch(delFilmAction(film.maPhim))
-    }
-  }
 
   const columns = [
     {
@@ -77,7 +72,11 @@ function Films({ history }) {
           <NavLink className="mr-2" to={`/admin/films/edit/${film.maPhim}`}><EditOutlined /></NavLink>
 
           <span
-            onClick={handleDeleteFilm}
+            onClick={() => {
+              if (window.confirm(`bạn có muốn xóa ${film.tenPhim}`)) {
+                dispatch(delFilmAction(film.maPhim))
+              }
+            }}
             className="mr-2"
             style={{ color: 'red', cursor: 'pointer' }}
             role="button"
@@ -86,7 +85,16 @@ function Films({ history }) {
           >
             <DeleteOutlined />
           </span>
-          <NavLink className="mr-2" to={`/admin/showtimes/${film.tenPhim}`}><CalendarOutlined /></NavLink>
+          <NavLink
+            className="mr-2"
+            to={`/admin/showtimes/${film.maPhim}`}
+            onClick={() => {
+              localStorage.setItem('filmParams', JSON.stringify(film))
+            }}
+          >
+            <CalendarOutlined />
+
+          </NavLink>
         </>
       ),
       width: '20%',

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Select, DatePicker,
   Form,
@@ -6,138 +6,115 @@ import {
 } from 'antd'
 import { useFormik } from 'formik'
 import dayjs from 'dayjs'
-import { GROUP_ID } from '../../../util/settings'
+import { createShowTimesService, getCumRapService, getHeThongRapService } from '../../../services/theaterService'
 
-function ShowTimes() {
-  const [componentSize, setComponentSize] = useState('default')
-  const onFormLayoutChange = ({ size }) => {
-    setComponentSize(size)
+function ShowTimes(props) {
+  let filmParam = {}
+  if (localStorage.getItem('filmParams')) filmParam = JSON.parse(localStorage.getItem('filmParams'))
+
+  const [state, setState] = useState({
+    heThongRap: [],
+    cumRap: []
+  })
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getHeThongRapService()
+      if (data) setState((prevState) => ({ ...prevState, heThongRap: data.data.content }))
+    }
+    fetchData()
+  }, [])
+
+  const handleChangeTheater = async (value) => {
+    const data = await getCumRapService(value)
+    if (data) setState((prevState) => ({ ...prevState, cumRap: data.data.content }))
   }
 
   const formik = useFormik({
     initialValues: {
-      taiKhoan: '',
-      matKhau: '',
-      email: '',
-      soDT: '',
-      maLoaiNguoiDung: '',
-      hoTen: '',
-      maNhom: GROUP_ID
-
+      maPhim: props.match.params.idFilm,
+      ngayChieuGioChieu: '',
+      maRap: '',
+      giaVe: 0
     },
-    // validationSchema: Yup.object({
-    //     taiKhoan: Yup.string().min(MIN_CHAR, `Must be ${MIN_CHAR} characters or more`)
-    //         .max(MAX_CHAR, `Must be ${MAX_CHAR} characters or less`)
-    //         .required('Required'),
-    //     matKhau: Yup.string().min(MIN_CHAR, `Must be ${MIN_CHAR} characters or more`)
-    // .max(MAX_CHAR, `Must be ${MAX_CHAR} characters or less`).
-    // required('Required'),
-    //     email: Yup.string().email('Invalid email address').required('Required'),
-    //     soDT: Yup.string().required('Required'),
-    //     hoTen: Yup.string().required('Required'),
-    // })
-    // ,
-    onSubmit: (values) => {
-      if (values.maLoaiNguoiDung === '') {
-        // values.maLoaiNguoiDung = 'KhachHang'
-      }
-      console.log(values)
+    onSubmit: async (values) => {
+      await createShowTimesService(values)
     }
   })
 
-  const handleChangeSelected = (value) => {
-    console.log(`selected ${value}`)
-    formik.setFieldValue('maLoaiNguoiDung', value)
-  }
+  const handleChangeTheaterClu = (value) => formik.setFieldValue('maRap', value)
+
+  const onChange = (value) => formik.setFieldValue('ngayChieuGioChieu', dayjs(value).format('DD/MM/YYYY HH:mm:ss'))
+
+  const onChangeInputNumber = (value) => formik.setFieldValue('giaVe', value)
 
   return (
-    <div className="container">
-      <h2>Show Times</h2>
-      <img
-        src="https://thuvienanime.com/wp-content/uploads/2021/09/nha-phi.jpeg"
-        style={{ width: 200, height: 200 }}
-        alt=""
-      />
+    <div className="container ">
+      <div>
+        <h2>
+          Create Showtimes -
+          {' '}
+          {filmParam.tenPhim}
+          {' '}
+        </h2>
+      </div>
+
       <Form
-        className="mt-3"
+        className="mt-5 d-flex "
         onSubmitCapture={formik.handleSubmit}
         labelCol={{
-          span: 4
+          span: 8
         }}
         wrapperCol={{
-          span: 14
-        }}
-        layout="horizontal"
-        initialValues={{
-          size: componentSize
-        }}
-        onValuesChange={onFormLayoutChange}
-        size={componentSize}
-        style={{
-          maxWidth: 600
+          span: 16
         }}
       >
-
-        <Form.Item label="Hệ thống rạp">
-          <Select
-            defaultValue="KhachHang"
-            style={{
-              width: 120
-            }}
-            onChange={handleChangeSelected}
-            options={[
-              {
-                value: 'KhachHang',
-                label: 'User'
-              },
-              {
-                value: 'QuanTri',
-                label: 'Admin'
-              }
-            ]}
+        <div>
+          <img
+            src={filmParam.hinhAnh}
+            style={{ width: 300, height: 300 }}
+            alt=""
           />
-        </Form.Item>
+        </div>
 
-        <Form.Item label="Cụm rạp">
-          <Select
-            defaultValue="KhachHang"
-            style={{
-              width: 120
-            }}
-            onChange={handleChangeSelected}
-            options={[
-              {
-                value: 'KhachHang',
-                label: 'User'
-              },
-              {
-                value: 'QuanTri',
-                label: 'Admin'
-              }
-            ]}
-          />
-        </Form.Item>
+        <div style={{ flex: 1 }}>
+          <Form.Item label="Hệ thống rạp">
+            <Select
+              options={state.heThongRap?.map((htr) => ({ value: htr.maHeThongRap, label: htr.tenHeThongRap }))}
+              placeholder="Chọn hệ thống rạp"
+              onChange={handleChangeTheater}
+            />
+          </Form.Item>
 
-        <Form.Item label="Ngày chiếu giờ chiếu">
-          <DatePicker
-            format="YYYY-MM-DD HH:mm:ss"
-            showTime={{
-              defaultValue: dayjs('00:00:00', 'HH:mm:ss')
-            }}
-          />
-        </Form.Item>
+          <Form.Item label="Cụm rạp">
+            <Select
+              style={{ width: 120 }}
+              options={state.cumRap?.map((rap) => ({ value: rap.maCumRap, label: rap.tenCumRap }))}
+              placeholder="Chọn cụm rạp"
+              onChange={handleChangeTheaterClu}
+            />
+          </Form.Item>
 
-        <Form.Item label="Giá vé">
-          <InputNumber min={75000} max={150000} />
-          {formik.errors.soDT ? (
-            <div className="alert alert-danger mt-2 p-1">{formik.errors.soDT}</div>
-          ) : null}
-        </Form.Item>
+          <Form.Item label="Ngày chiếu giờ chiếu">
+            <DatePicker
+              format="DD/MM/YYYY HH:mm:ss"
+              showTime={{
+                defaultValue: dayjs('00:00:00', 'HH:mm:ss')
+              }}
+              onChange={onChange}
+            />
+          </Form.Item>
 
-        <Form.Item>
-          <button type="submit" className="btn btn-info">Tạo Lịch chiếu</button>
-        </Form.Item>
+          <Form.Item label="Giá vé">
+            <InputNumber min={75000} max={150000} name="giaVe" onChange={onChangeInputNumber} />
+          </Form.Item>
+
+          <Form.Item style={{ marginLeft: '19em' }}>
+            <button type="submit" className="btn btn-info">Create Showtimes </button>
+          </Form.Item>
+        </div>
       </Form>
+
     </div>
   )
 }

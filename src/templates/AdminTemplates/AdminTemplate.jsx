@@ -8,8 +8,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
-  VideoCameraOutlined,
-  CalendarOutlined
+  VideoCameraOutlined
 } from '@ant-design/icons'
 
 import { USER_LOGIN } from '../../util/settings'
@@ -34,16 +33,13 @@ export default function AdminTemplate(props) {
             <Menu
               theme="dark"
               mode="inline"
-              defaultSelectedKeys={['1']}
+              defaultSelectedKeys={['']}
             >
               <Menu.Item key="1" icon={<UserOutlined />}>
                 <NavLink to="/admin/users">User</NavLink>
               </Menu.Item>
               <Menu.Item key="2" icon={<VideoCameraOutlined />}>
                 <NavLink to="/admin/films">Films</NavLink>
-              </Menu.Item>
-              <Menu.Item key="3" icon={<CalendarOutlined />}>
-                <NavLink to="/admin/showtimes">Showtimes</NavLink>
               </Menu.Item>
             </Menu>
           </Sider>
