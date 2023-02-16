@@ -23,6 +23,10 @@ module.exports = {
     quotes: ['error', 'single'],
     'import/no-cycle': 0,
     'react/prop-types': 0,
-    'max-len': ['error', { code: 120 }]
+    'max-len': ['error', { code: 150 }],
+    'import/prefer-default-export': ['off', { target: 'any' }],
+    'default-param-last': 0,
+    'react/jsx-props-no-spreading': 0,
+    'react/destructuring-assignment': 0
   }
 }
