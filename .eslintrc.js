@@ -6,7 +6,8 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
-    'airbnb'
+    'airbnb',
+    'plugin:react-hooks/recommended'
   ],
   overrides: [
   ],
@@ -15,7 +16,8 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: [
-    'react'
+    'react',
+    'react-hooks'
   ],
   rules: {
     semi: ['error', 'never'],
@@ -27,6 +29,8 @@ module.exports = {
     'import/prefer-default-export': ['off', { target: 'any' }],
     'default-param-last': 0,
     'react/jsx-props-no-spreading': 0,
-    'react/destructuring-assignment': 0
+    'react/destructuring-assignment': 0,
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn'
   }
 }
