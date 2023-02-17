@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Table } from 'antd'
+import { Button, Table, Tag } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
@@ -52,7 +52,7 @@ function User({ history }) {
     {
       title: 'Email',
       dataIndex: 'email',
-      width: '25%'
+      width: '20%'
     },
     {
       title: 'Phone Number',
@@ -60,9 +60,28 @@ function User({ history }) {
       width: '20%'
     },
     {
+      title: 'Role',
+      dataIndex: '',
+      width: '15%',
+      // eslint-disable-next-line no-unused-vars
+      render: (text, user) => (
+        <div>
+          {user.maLoaiNguoiDung === 'QuanTri' ? (
+            <Tag color="magenta">
+              Admin
+            </Tag>
+          ) : (
+            <Tag color="green">
+              User
+            </Tag>
+          )}
+        </div>
+      )
+    },
+    {
       title: 'Action',
       dataIndex: '',
-      width: '20%',
+      width: '10%',
       render: (text, user) => (
         <>
           <NavLink className="mr-2" to={`/admin/users/edit-user/${user.taiKhoan}`}><EditOutlined /></NavLink>

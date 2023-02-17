@@ -1,7 +1,10 @@
 import { GROUP_ID } from '../util/settings'
 import { del, get, post } from './baseService'
 
-export const getAllMovieService = () => get(`api/QuanLyPhim/LayDanhSachPhim?maNhom=${GROUP_ID}`)
+export const getMovieService = (nameMovie = '') => {
+  if (nameMovie !== '') return get(`api/QuanLyPhim/LayDanhSachPhim?maNhom=${GROUP_ID}&tenPhim=${nameMovie}`)
+  return get(`api/QuanLyPhim/LayDanhSachPhim?maNhom=${GROUP_ID}&?tenPhim=${nameMovie}`)
+}
 
 export const addNewMovieService = (formData) => post('api/QuanLyPhim/ThemPhimUploadHinh', formData)
 

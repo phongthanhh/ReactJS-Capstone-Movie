@@ -54,7 +54,7 @@ function EditUser({ match }) {
     }),
     onSubmit: (values) => {
       console.log('value', values)
-      updateUserAction(values)
+      dispatch(updateUserAction(values))
     }
   })
 

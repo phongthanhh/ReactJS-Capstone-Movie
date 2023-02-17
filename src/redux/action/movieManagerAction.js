@@ -1,19 +1,19 @@
 import { history } from '../../App'
 import {
-  addNewMovieService, delMovieService, getAllMovieService, getFilmDetailService, updateFilmService
+  addNewMovieService, delMovieService, getFilmDetailService, getMovieService, updateFilmService
 } from '../../services/movieManagerService'
 
 import { GET_LIST_FILMS, SET_FILM_DETAIL } from '../types/movieManageTypes/movieManageTypes'
 
-export const getFilmAction = () => async (dispatch) => {
+export const getFilmAction = (nameMovie = '') => async (dispatch) => {
   try {
-    const result = await getAllMovieService()
+    const result = await getMovieService(nameMovie)
     dispatch({
       type: GET_LIST_FILMS,
       payload: result.data.content
     })
   } catch (error) {
-    console.log('thất bại')
+    console.log(error.response?.data)
   }
 }
 

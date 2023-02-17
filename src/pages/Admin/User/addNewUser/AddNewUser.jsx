@@ -44,7 +44,8 @@ function AddNewUser() {
     }),
     onSubmit: (values) => {
       if (values.maLoaiNguoiDung === '') {
-        // values.maLoaiNguoiDung = 'KhachHang'
+        // eslint-disable-next-line no-param-reassign
+        values.maLoaiNguoiDung = 'KhachHang'
       }
       console.log(values)
 

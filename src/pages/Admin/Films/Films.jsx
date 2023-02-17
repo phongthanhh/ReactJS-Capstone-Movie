@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
-import { Table, Button } from 'antd'
+import React, { useEffect, useRef, useState } from 'react'
+import { Table, Button, Input } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import {
@@ -9,6 +9,8 @@ import {
   CalendarOutlined
 } from '@ant-design/icons'
 import { delFilmAction, getFilmAction } from '../../../redux/action/movieManagerAction'
+
+const { Search } = Input
 
 function Films({ history }) {
   const { arrFilms } = useSelector((state) => state.movieManagerReducer)
@@ -25,6 +27,24 @@ function Films({ history }) {
   useEffect(() => {
     dispatch(getFilmAction())
   }, [])
+
+  const typingTimeOutRef = useRef(null)
+
+  const [searchItem, setSearchItem] = useState('')
+
+  const handleFilterChange = (newFilter) => dispatch(getFilmAction(newFilter.q))
+
+  const handleChangeSearchItem = (e) => {
+    const result = e.target.value
+    setSearchItem(result)
+    if (typingTimeOutRef.current) clearTimeout(typingTimeOutRef.current)
+    typingTimeOutRef.current = setTimeout(() => {
+      const formValue = {
+        q: result
+      }
+      handleFilterChange(formValue)
+    }, 1000)
+  }
 
   const columns = [
     {
@@ -121,7 +141,14 @@ function Films({ history }) {
         {' '}
         Add New Film
       </Button>
-      <Table columns={columns} dataSource={data} onChange={onChange} />
+      <Search
+        placeholder="input search text"
+        enterButton="Search"
+        size="large"
+        value={searchItem}
+        onChange={handleChangeSearchItem}
+      />
+      <Table className="mt-3" columns={columns} dataSource={data} onChange={onChange} />
       ;
     </div>
   )

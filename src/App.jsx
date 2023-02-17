@@ -8,12 +8,12 @@ import Films from './pages/Admin/Films/Films'
 import ShowTimes from './pages/Admin/ShowTimes/ShowTimes'
 import { loginService } from './services/baseService'
 import { ACCESS_TOKEN, USER_LOGIN } from './util/settings'
-import Home from './pages/Home/Home'
 import AddNewFilm from './pages/Admin/Films/AddNewFilm/AddNewFilm'
 import EditFilm from './pages/Admin/Films/EditFilm/EditFilm'
 import User from './pages/Admin/User/User'
 import AddNewUser from './pages/Admin/User/addNewUser/AddNewUser'
 import EditUser from './pages/Admin/User/editUser/EditUser'
+// import HomeTemplate from './templates/HomeTemplates/HomeTemplate'
 
 export const history = createBrowserHistory()
 
@@ -21,8 +21,8 @@ function App() {
   //! Đăng nhập sau khi load ứng dụng. Xóa sau
   useEffect(() => {
     const payload = {
-      taiKhoan: '1string11',
-      matKhau: '123789456 '
+      taiKhoan: 'phongthanh1',
+      matKhau: '123123 '
     }
 
     loginService(payload).then((res) => {
@@ -34,7 +34,9 @@ function App() {
   return (
     <Router history={history}>
       <Switch>
-        <Home path="/" exact component={Home} />
+        {/* Home */}
+        {/* <HomeTemplate path="/home" exact component={} /> */}
+        {/* <HomeTemplate path="/home" exact component={Home}/> */}
 
         {/* ADmin */}
         <AdminTemplate path="/admin" exact component={Dashboard} />
