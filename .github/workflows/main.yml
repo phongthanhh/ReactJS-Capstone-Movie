@@ -1,5 +1,4 @@
-yaml
-name: Capstone movie CI
+name: Checking...wait a minutes
 on:
   push:
     branches:
