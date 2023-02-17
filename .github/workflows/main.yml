@@ -1,4 +1,3 @@
-yaml
 name: Capstone movie CI
 on:
   push:
