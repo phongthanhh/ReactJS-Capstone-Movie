@@ -6,11 +6,10 @@ import { NavLink } from 'react-router-dom'
 import {
   EditOutlined,
   DeleteOutlined,
-  CalendarOutlined
+  CalendarOutlined,
+  SearchOutlined
 } from '@ant-design/icons'
 import { delFilmAction, getFilmAction } from '../../../redux/action/movieManagerAction'
-
-const { Search } = Input
 
 function Films({ history }) {
   const { arrFilms } = useSelector((state) => state.movieManagerReducer)
@@ -141,12 +140,13 @@ function Films({ history }) {
         {' '}
         Add New Film
       </Button>
-      <Search
+      <Input
         placeholder="input search text"
         enterButton="Search"
         size="large"
         value={searchItem}
         onChange={handleChangeSearchItem}
+        prefix={<SearchOutlined />}
       />
       <Table className="mt-3" columns={columns} dataSource={data} onChange={onChange} />
       ;
