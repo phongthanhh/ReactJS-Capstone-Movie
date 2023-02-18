@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {
   ACCESS_TOKEN, DOMAIN, TOKEN_CYBER
-} from '../util/settings'
+} from '../utils/settings'
 
 export const get = (url) => axios({
   url: `${DOMAIN}/${url}`,

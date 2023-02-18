@@ -11,7 +11,7 @@ import {
   VideoCameraOutlined
 } from '@ant-design/icons'
 
-import { USER_LOGIN } from '../../util/settings'
+import { USER_LOGIN } from '../../utils/settings'
 
 const { Header, Sider, Content } = Layout
 

@@ -6,10 +6,10 @@ import {
   Input, Select
 } from 'antd'
 import { useDispatch } from 'react-redux'
-import { GROUP_ID } from '../../../../util/settings'
+import { GROUP_ID } from '../../../../utils/settings'
 
 import { addtUserAction } from '../../../../redux/action/userManagerActions'
-import { MAX_CHAR, MIN_CHAR } from '../../../../util/constants/validateYup'
+import { MAX_CHAR, MIN_CHAR } from '../../../../utils/constants/validateYup'
 
 function AddNewUser() {
   const [componentSize, setComponentSize] = useState('default')

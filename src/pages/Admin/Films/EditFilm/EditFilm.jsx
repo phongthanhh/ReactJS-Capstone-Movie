@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import dayjs from 'dayjs'
 import { getFilmDetailAction, updateFilmAction } from '../../../../redux/action/movieManagerAction'
-import { GROUP_ID } from '../../../../util/settings'
+import { GROUP_ID } from '../../../../utils/settings'
 
 function EditFilm({ match }) {
   const dispatch = useDispatch()

@@ -1,4 +1,4 @@
-import { GROUP_ID } from '../util/settings'
+import { GROUP_ID } from '../utils/settings'
 import { del, get, post } from './baseService'
 
 export const getMovieService = (nameMovie = '') => {

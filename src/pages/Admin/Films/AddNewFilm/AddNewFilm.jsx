@@ -10,7 +10,7 @@ import {
 import { useDispatch } from 'react-redux'
 import dayjs from 'dayjs'
 import { addNewFilmAction } from '../../../../redux/action/movieManagerAction'
-import { GROUP_ID } from '../../../../util/settings'
+import { GROUP_ID } from '../../../../utils/settings'
 
 function AddNewFilm() {
   const [componentSize, setComponentSize] = useState('default')

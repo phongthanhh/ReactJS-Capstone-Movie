@@ -6,10 +6,10 @@ import {
   Input, Select
 } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { GROUP_ID } from '../../../../util/settings'
+import { GROUP_ID } from '../../../../utils/settings'
 
 import { getUserDetailAction, updateUserAction } from '../../../../redux/action/userManagerActions'
-import { MAX_CHAR, MIN_CHAR } from '../../../../util/constants/validateYup'
+import { MAX_CHAR, MIN_CHAR } from '../../../../utils/constants/validateYup'
 
 function EditUser({ match }) {
   const { id } = match.params
