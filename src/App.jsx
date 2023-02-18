@@ -13,7 +13,10 @@ import EditFilm from './pages/Admin/Films/EditFilm/EditFilm'
 import User from './pages/Admin/User/User'
 import AddNewUser from './pages/Admin/User/addNewUser/AddNewUser'
 import EditUser from './pages/Admin/User/editUser/EditUser'
-// import HomeTemplate from './templates/HomeTemplates/HomeTemplate'
+import HomeTemplate from './templates/HomeTemplates/HomeTemplate'
+import Home from './pages/Home/Home'
+import HomeDetailFilm from './pages/Home/HomeDetailFilm/HomeDetailFilm'
+import CheckOut from './pages/Home/CheckOut/CheckOut'
 
 export const history = createBrowserHistory()
 
@@ -35,8 +38,9 @@ function App() {
     <Router history={history}>
       <Switch>
         {/* Home */}
-        {/* <HomeTemplate path="/home" exact component={} /> */}
-        {/* <HomeTemplate path="/home" exact component={Home}/> */}
+        <HomeTemplate path="/home" exact component={Home} />
+        <HomeTemplate path="/film-detail" exact component={HomeDetailFilm} />
+        <HomeTemplate path="/checkout/:id" exact component={CheckOut} />
 
         {/* ADmin */}
         <AdminTemplate path="/admin" exact component={Dashboard} />

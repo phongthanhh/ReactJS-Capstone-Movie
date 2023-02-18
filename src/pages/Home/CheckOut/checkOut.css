@@ -1,0 +1,22 @@
+.seat{
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    background-color: rgb(172,170,169);
+    color: #fff;
+}
+.bookedSeat{
+    background-color: rgb(232, 76, 76);
+    cursor: no-drop;
+}
+
+.bookingSeat{
+    background-color: rgb(18, 176, 18);
+}
+
+.vipSeat{
+    background-color: rgb(152, 42, 6);
+}

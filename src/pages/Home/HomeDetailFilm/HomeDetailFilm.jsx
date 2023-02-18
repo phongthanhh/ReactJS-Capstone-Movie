@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
-function Home(props) {
+function HomeDetailFilm(props) {
   return (
     <div>
-      Home nè
+      homedetail
     </div>
   )
 }
 
-export default Home
+export default HomeDetailFilm
