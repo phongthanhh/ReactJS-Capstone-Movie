@@ -1,10 +1,11 @@
 export const debounce = (action, delay = 500) => {
   let timerId
 
-  return () => {
+  return (...args) => {
     if (timerId) {
       clearTimeout(timerId)
     }
-    timerId = setTimeout(action, delay)
+
+    timerId = setTimeout(() => action(...args), delay)
   }
 }

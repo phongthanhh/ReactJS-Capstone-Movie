@@ -9,12 +9,19 @@ import {
   CalendarOutlined,
   SearchOutlined
 } from '@ant-design/icons'
+import { debounce } from 'utils'
 import { delFilmAction, getFilmAction } from '../../../redux/action/movieManagerAction'
 
 function Films({ history }) {
   const { arrFilms } = useSelector((state) => state.movieManagerReducer)
-  const [data, setData] = useState([])
   const dispatch = useDispatch()
+
+  const [data, setData] = useState([])
+
+  const handleSearchFilm = (e) => {
+    const { value } = e.target
+    dispatch(getFilmAction(value))
+  }
 
   useEffect(() => {
     if (arrFilms.length > 0) {
@@ -26,24 +33,6 @@ function Films({ history }) {
   useEffect(() => {
     dispatch(getFilmAction())
   }, [])
-
-  const typingTimeOutRef = useRef(null)
-
-  const [searchItem, setSearchItem] = useState('')
-
-  const handleFilterChange = (newFilter) => dispatch(getFilmAction(newFilter.q))
-
-  const handleChangeSearchItem = (e) => {
-    const result = e.target.value
-    setSearchItem(result)
-    if (typingTimeOutRef.current) clearTimeout(typingTimeOutRef.current)
-    typingTimeOutRef.current = setTimeout(() => {
-      const formValue = {
-        q: result
-      }
-      handleFilterChange(formValue)
-    }, 1000)
-  }
 
   const columns = [
     {
@@ -144,8 +133,7 @@ function Films({ history }) {
         placeholder="input search text"
         enterButton="Search"
         size="large"
-        value={searchItem}
-        onChange={handleChangeSearchItem}
+        onChange={debounce(handleSearchFilm)}
         prefix={<SearchOutlined />}
       />
       <Table className="mt-3" columns={columns} dataSource={data} onChange={onChange} />
