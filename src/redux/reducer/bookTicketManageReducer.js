@@ -1,4 +1,4 @@
-import { GET_TICKET_ROOM, SELECT_SEAT } from '../types/bookTicketManageTypes/bookTicketManageType'
+import { BOOK_TICKET_SUCCESS, GET_TICKET_ROOM, SELECT_SEAT } from '../types/bookTicketManageTypes/bookTicketManageType'
 
 const initialState = {
   ticketRoomDetail: {},
@@ -8,6 +8,7 @@ const initialState = {
 export const bookTicketManageReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_TICKET_ROOM:
+      console.log(payload)
       return { ...state, ticketRoomDetail: payload }
     case SELECT_SEAT: {
       const indexSeat = state.ticketRoomDetail.danhSachGhe.findIndex((seat) => seat.maGhe === payload.maGhe)
@@ -30,6 +31,8 @@ export const bookTicketManageReducer = (state = initialState, { type, payload })
         }
       }
     }
+    case BOOK_TICKET_SUCCESS:
+      return { ...state, seatsSelecting: [] }
     default:
       return state
   }

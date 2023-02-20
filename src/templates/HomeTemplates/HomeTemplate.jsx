@@ -1,3 +1,4 @@
+import HomeFooter from 'components/HomeFooter/HomeFooter'
 import React from 'react'
 import { Route } from 'react-router'
 import HeaderHome from '../../pages/Home/Layouts/Header/HeaderHome'
@@ -10,7 +11,7 @@ function HomeTemplate(props) {
         <>
           <HeaderHome />
           <props.component {...propsRoute} />
-          <h2>Footer</h2>
+          <HomeFooter />
         </>
       )}
     />

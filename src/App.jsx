@@ -3,6 +3,7 @@ import { createBrowserHistory } from 'history'
 import { Router, Switch } from 'react-router'
 import React, { useEffect } from 'react'
 import { ACCESS_TOKEN, ROUTES_NAME, USER_LOGIN } from 'constant'
+import Loading from 'components/loading/loading'
 import AdminTemplate from './templates/AdminTemplates/AdminTemplate'
 import Dashboard from './pages/Admin/Dashboard/Dashboard'
 import Films from './pages/Admin/Films/Films'
@@ -36,6 +37,7 @@ function App() {
 
   return (
     <Router history={history}>
+      <Loading />
       <Switch>
         {/* Home */}
         <HomeTemplate path={ROUTES_NAME.HOME} exact component={Home} />

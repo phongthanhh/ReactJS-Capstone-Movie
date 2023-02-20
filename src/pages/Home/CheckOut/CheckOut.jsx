@@ -35,7 +35,7 @@ function CheckOut(props) {
         {(index + 1) % 16 === 0 ? <br /> : ' ' }
       </>
     )
-  }), [danhSachGhe])
+  }))
 
   return (
     <div style={{ backgroundImage: `url(${backGround})` }}>
@@ -48,28 +48,63 @@ function CheckOut(props) {
             <div>
               {renderSeats}
             </div>
+            <div className="mt-5 flex justify-center">
+              <table className="divide-y divide-gray-200 w-2/3">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th>Empty Seat</th>
+                    <th>Booking Seat</th>
+                    <th>Vip Seat</th>
+                    <th>Booked Seat</th>
+                    <th>Your Seat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <button type="button" className="seat text-center"> </button>
+                    </td>
+                    <td>
+                      <button type="button" className="bookingSeat text-center"> </button>
+                    </td>
+                    <td>
+                      <button type="button" className="vipSeat text-center"> </button>
+                    </td>
+                    <td>
+                      <button type="button" className="bookedSeat text-center"> </button>
+                    </td>
+                    <td>
+                      <button type="button" className="seat text-center"> </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div className="col-3 text-white">
-            <h3>0đ</h3>
-            <h3>{thongTinPhim?.tenPhim}</h3>
-            <p>
-              Địa điểm:
-              {thongTinPhim?.diaChi}
-            </p>
-            <p>
+          <div className="col-3 text-white formBookTicket" style={{ fontSize: '0.8em' }}>
+            <h2 style={{
+              padding: '1em', textAlign: 'center', borderBottom: '1px dotted #fff', fontSize: '1.5em'
+            }}
+            >
+              {thongTinPhim?.tenPhim}
+            </h2>
+            <div className="d-flex py-3">
+              <span>Địa điểm:</span>
+              <span>{thongTinPhim?.diaChi}</span>
+            </div>
+            <div className="py-3">
               Ngày chiếu:
               {thongTinPhim?.ngayChieu}
               {' '}
               -
               {' '}
               {thongTinPhim?.gioChieu}
-            </p>
-            <p>{thongTinPhim?.tenRap}</p>
-            <div className="d-flex">
+            </div>
+            <div className="py-3">{thongTinPhim?.tenRap}</div>
+            <div className="d-flex py-3">
               <div className="w-4/5">
                 <span className="text-danger mr-1">Ghế</span>
                 {seatsSelecting?.map((seat) => <span className="text-green-500 mr-1">{seat.tenGhe}</span>)}
-
               </div>
               <div className="col-span-1">
                 <span className="text-success">
@@ -77,15 +112,15 @@ function CheckOut(props) {
                 </span>
               </div>
             </div>
-            <div>
+            <div className="py-3">
               <span>Email:tangthanh@gmail.com</span>
             </div>
-            <div>
+            <div className="py-3">
               <span>Phone:02130123812</span>
             </div>
-            <div>
+            <div className="pt-5">
               <button
-                className="btn btn-info"
+                className="btn btn-info w-100"
                 type="button"
                 onClick={() => {
                   const value = {
