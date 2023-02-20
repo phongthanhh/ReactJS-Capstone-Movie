@@ -8,6 +8,7 @@ import {
   DeleteOutlined
 
 } from '@ant-design/icons'
+import { USERS_TYPE } from 'constant'
 import { delUserAction, getListUserAction } from '../../../redux/action/userManagerActions'
 
 function User({ history }) {
@@ -66,7 +67,7 @@ function User({ history }) {
       // eslint-disable-next-line no-unused-vars
       render: (text, user) => (
         <div>
-          {user.maLoaiNguoiDung === 'QuanTri' ? (
+          {user.maLoaiNguoiDung === USERS_TYPE.ADMIN ? (
             <Tag color="magenta">
               Admin
             </Tag>

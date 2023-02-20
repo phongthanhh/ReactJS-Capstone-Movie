@@ -2,12 +2,12 @@ import './App.css'
 import { createBrowserHistory } from 'history'
 import { Router, Switch } from 'react-router'
 import React, { useEffect } from 'react'
+import { ACCESS_TOKEN, ROUTES_NAME, USER_LOGIN } from 'constant'
 import AdminTemplate from './templates/AdminTemplates/AdminTemplate'
 import Dashboard from './pages/Admin/Dashboard/Dashboard'
 import Films from './pages/Admin/Films/Films'
 import ShowTimes from './pages/Admin/ShowTimes/ShowTimes'
 import { loginService } from './services/baseService'
-import { ACCESS_TOKEN, USER_LOGIN } from './utils/settings'
 import AddNewFilm from './pages/Admin/Films/AddNewFilm/AddNewFilm'
 import EditFilm from './pages/Admin/Films/EditFilm/EditFilm'
 import User from './pages/Admin/User/User'
@@ -38,20 +38,20 @@ function App() {
     <Router history={history}>
       <Switch>
         {/* Home */}
-        <HomeTemplate path="/home" exact component={Home} />
-        <HomeTemplate path="/film-detail" exact component={HomeDetailFilm} />
-        <HomeTemplate path="/checkout/:id" exact component={CheckOut} />
+        <HomeTemplate path={ROUTES_NAME.HOME} exact component={Home} />
+        <HomeTemplate path={ROUTES_NAME.FILM_DETAIL} exact component={HomeDetailFilm} />
+        <HomeTemplate path={`${ROUTES_NAME.CHECKOUT}/:id`} exact component={CheckOut} />
 
         {/* ADmin */}
-        <AdminTemplate path="/admin" exact component={Dashboard} />
-        <AdminTemplate path="/admin/films" exact component={Films} />
-        <AdminTemplate path="/admin/users" exact component={User} />
-        <AdminTemplate path="/admin/showtimes/:idFilm" exact component={ShowTimes} />
-        <AdminTemplate path="/admin/films/add-new-film" exact component={AddNewFilm} />
-        <AdminTemplate path="/admin/films/edit/:id" exact component={EditFilm} />
+        <AdminTemplate path={ROUTES_NAME.ADMIN} exact component={Dashboard} />
+        <AdminTemplate path={ROUTES_NAME.ADMIN_FILMS} exact component={Films} />
+        <AdminTemplate path={ROUTES_NAME.ADMIN_USERS} exact component={User} />
+        <AdminTemplate path={`${ROUTES_NAME.ADMIN_SHOWTIMES}/:idFilm`} exact component={ShowTimes} />
+        <AdminTemplate path={ROUTES_NAME.ADMIN_ADD_NEW_FILM} exact component={AddNewFilm} />
+        <AdminTemplate path={`${ROUTES_NAME.ADMIN_FILM_EDIT}/:id`} exact component={EditFilm} />
 
-        <AdminTemplate path="/admin/users/add-new-user" exact component={AddNewUser} />
-        <AdminTemplate path="/admin/users/edit-user/:id" exact component={EditUser} />
+        <AdminTemplate path={ROUTES_NAME.ADMIN_ADD_NEW_USER} exact component={AddNewUser} />
+        <AdminTemplate path={`${ROUTES_NAME.ADMIN_USERS_EDIT}/:id`} exact component={EditUser} />
 
       </Switch>
     </Router>

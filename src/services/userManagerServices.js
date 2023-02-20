@@ -1,4 +1,4 @@
-import { GROUP_ID } from '../utils/settings'
+import { GROUP_ID } from 'constant'
 import {
   del, get, post, put
 } from './baseService'

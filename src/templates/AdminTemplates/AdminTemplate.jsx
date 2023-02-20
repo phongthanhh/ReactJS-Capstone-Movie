@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { Redirect, Route } from 'react-router'
 import { NavLink } from 'react-router-dom'
@@ -10,8 +11,7 @@ import {
   UserOutlined,
   VideoCameraOutlined
 } from '@ant-design/icons'
-
-import { USER_LOGIN } from '../../utils/settings'
+import { USER_LOGIN } from 'constant'
 
 const { Header, Sider, Content } = Layout
 

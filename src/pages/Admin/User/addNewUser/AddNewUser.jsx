@@ -6,8 +6,8 @@ import {
   Input, Select
 } from 'antd'
 import { useDispatch } from 'react-redux'
-import { GROUP_ID } from '../../../../utils/settings'
 
+import { GROUP_ID, USERS_TYPE } from 'constant'
 import { addtUserAction } from '../../../../redux/action/userManagerActions'
 import { MAX_CHAR, MIN_CHAR } from '../../../../utils/constants/validateYup'
 
@@ -45,7 +45,7 @@ function AddNewUser() {
     onSubmit: (values) => {
       if (values.maLoaiNguoiDung === '') {
         // eslint-disable-next-line no-param-reassign
-        values.maLoaiNguoiDung = 'KhachHang'
+        values.maLoaiNguoiDung = USERS_TYPE.CUSTOMER
       }
       console.log(values)
 
@@ -60,7 +60,7 @@ function AddNewUser() {
 
   return (
     <div className="container">
-      <h2>Add New Film</h2>
+      <h2>Add New User</h2>
       <Form
         onSubmitCapture={formik.handleSubmit}
         labelCol={{
@@ -118,18 +118,18 @@ function AddNewUser() {
 
         <Form.Item label="Loại Người Dùng">
           <Select
-            defaultValue="KhachHang"
+            defaultValue={USERS_TYPE.CUSTOMER}
             style={{
               width: 120
             }}
             onChange={handleChangeSelected}
             options={[
               {
-                value: 'KhachHang',
+                value: USERS_TYPE.CUSTOMER,
                 label: 'User'
               },
               {
-                value: 'QuanTri',
+                value: USERS_TYPE.ADMIN,
                 label: 'Admin'
               }
             ]}
