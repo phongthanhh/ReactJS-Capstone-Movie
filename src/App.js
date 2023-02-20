@@ -6,6 +6,7 @@ import Home from './pages/Home/Home';
 import ThongTinChiTiet from './pages/ThongTinChiTiet/ThongTinChiTiet';
 import { createBrowserHistory } from 'history';
 import { HomeTemplate } from './template/homeTemplate/HomeTemplate';
+import Footer from './components/Footer';
 
 
 export const history = createBrowserHistory();
@@ -18,8 +19,9 @@ function App() {
         <HomeTemplate exact path='/home/film-detail/:id' component={ThongTinChiTiet}/>
         
         <HomeTemplate exact path="/" component={Home}/>
+       
       </Switch>
-     
+      <Footer/>
       
     </Router>
    

@@ -48,7 +48,7 @@ export default function CarouselMovie() {
   }
 
   return (
-    <div style={{background:'url(https://www.cgv.vn/skin/frontend/cgv/default/images/bg_c_bricks.png)'}}>
+    <div className='carousel' style={{background:'url(https://www.cgv.vn/skin/frontend/cgv/default/images/bg_c_bricks.png)'}}>
         <Slider {...settings} style={{width:'75%',margin:'auto'}}>
           {renderBanner()}
         </Slider>
