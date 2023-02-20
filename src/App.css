@@ -21,23 +21,35 @@ button.slick-arrow.slick-prev{
     visibility: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+.carousel {
+    
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-a{
-  text-decoration: none;
-}
-
-.listMovie .slick-dots li button:before {
+.carousel .slick-dots li button:before {
     font-size: 17px;
+}
+
+/* lịch chiếu */
+.lichChieu {
+    width:60%;
+    margin: auto; 
+    box-shadow:1px 0px 10px; 
+    background-color:white;
+}
+
+/* footer */
+.contact{
+    background-color: #fcf6dc;
+}
+
+.footer {
+    background: url('https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-top.png');
+    height: 100px;
+}
+
+.info {
+    color: black;
+}
+
+.contact i{
+    font-size: 20px;
 }

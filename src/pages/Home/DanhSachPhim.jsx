@@ -72,7 +72,6 @@ export default function DanhSachPhim() {
               cover={<img alt="example" src={movie.hinhAnh} style={{ height: '400px' }} />}
             >
               <p>{movie.tenPhim}</p>
-
             </Card>
           </NavLink>
         </div>
