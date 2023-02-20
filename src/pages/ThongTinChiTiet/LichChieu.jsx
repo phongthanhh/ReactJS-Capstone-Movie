@@ -34,9 +34,16 @@ export default function LichChieu(maPhim) {
         return thongTinRap.map((rap) => {
             return <div key={rap.maHeThongRap} style={{ borderBottom: '2px solid gray' }} onClick={() => {
                 getLichChieu(rap.maHeThongRap)
-            }}>
-                <img style={{ width: '100px' }} src={rap.logo} alt="abc" />
-                <span>{rap.tenHeThongRap}</span>
+            }}> 
+                <div className="row">
+                    <div className="col-7">
+                        <img style={{ width: '100px' }} src={rap.logo} alt="abc" />
+                    </div>
+                    <div className="col-5">
+                        <span>{rap.tenHeThongRap}</span>
+                    </div>
+                </div>
+                  
             </div>
         })
     }
@@ -73,7 +80,7 @@ export default function LichChieu(maPhim) {
                     <div className="col-3">
                         {renderRap()}
                     </div>
-                    <div className="col-9">
+                    <div className="col-9" style={{backgroundColor:'#e99898cf'}}>
                         <div>
                             {renderLichChieu()}
                         </div>
