@@ -8,6 +8,9 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from './redux/configStore';
 
+import 'antd/dist/reset.css'
+import axios from 'axios';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
