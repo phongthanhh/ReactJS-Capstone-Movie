@@ -1,18 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { Table, Button } from 'antd'
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useRef, useState } from 'react'
+import { Table, Button, Input } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import {
   EditOutlined,
   DeleteOutlined,
-  CalendarOutlined
+  CalendarOutlined,
+  SearchOutlined
 } from '@ant-design/icons'
+import { debounce } from 'utils'
 import { delFilmAction, getFilmAction } from '../../../redux/action/movieManagerAction'
 
 function Films({ history }) {
   const { arrFilms } = useSelector((state) => state.movieManagerReducer)
-  const [data, setData] = useState([])
   const dispatch = useDispatch()
+
+  const [data, setData] = useState([])
+
+  const handleSearchFilm = (e) => {
+    const { value } = e.target
+    dispatch(getFilmAction(value))
+  }
 
   useEffect(() => {
     if (arrFilms.length > 0) {
@@ -24,12 +33,6 @@ function Films({ history }) {
   useEffect(() => {
     dispatch(getFilmAction())
   }, [])
-
-  const handleDeleteFilm = (film) => {
-    if (window.confirm(`bạn có muốn xóa ${film.tenPhim}`)) {
-      dispatch(delFilmAction(film.maPhim))
-    }
-  }
 
   const columns = [
     {
@@ -77,7 +80,11 @@ function Films({ history }) {
           <NavLink className="mr-2" to={`/admin/films/edit/${film.maPhim}`}><EditOutlined /></NavLink>
 
           <span
-            onClick={handleDeleteFilm}
+            onClick={() => {
+              if (window.confirm(`bạn có muốn xóa ${film.tenPhim}`)) {
+                dispatch(delFilmAction(film.maPhim))
+              }
+            }}
             className="mr-2"
             style={{ color: 'red', cursor: 'pointer' }}
             role="button"
@@ -86,7 +93,16 @@ function Films({ history }) {
           >
             <DeleteOutlined />
           </span>
-          <NavLink className="mr-2" to={`/admin/showtimes/${film.tenPhim}`}><CalendarOutlined /></NavLink>
+          <NavLink
+            className="mr-2"
+            to={`/admin/showtimes/${film.maPhim}`}
+            onClick={() => {
+              localStorage.setItem('filmParams', JSON.stringify(film))
+            }}
+          >
+            <CalendarOutlined />
+
+          </NavLink>
         </>
       ),
       width: '20%',
@@ -96,7 +112,6 @@ function Films({ history }) {
   ]
 
   const onChange = (pagination, filters, sorter, extra) => {
-    console.log('params', pagination, filters, sorter, extra)
   }
 
   return (
@@ -113,7 +128,14 @@ function Films({ history }) {
         {' '}
         Add New Film
       </Button>
-      <Table columns={columns} dataSource={data} onChange={onChange} />
+      <Input
+        placeholder="input search text"
+        enterButton="Search"
+        size="large"
+        onChange={debounce(handleSearchFilm)}
+        prefix={<SearchOutlined />}
+      />
+      <Table className="mt-3" columns={columns} dataSource={data} onChange={onChange} />
       ;
     </div>
   )

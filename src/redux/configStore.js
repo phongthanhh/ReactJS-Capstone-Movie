@@ -1,12 +1,17 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
+import { bookTicketManageReducer } from './reducer/bookTicketManageReducer'
+import { loadingReducer } from './reducer/loadingReducer'
 import { movieManagerReducer } from './reducer/movieManagerReducer'
 import { userManageReducer } from './reducer/userManageReducer'
 
 const rootReducer = combineReducers({
   // Chứa reducer
   movieManagerReducer,
-  userManageReducer
+  userManageReducer,
+  bookTicketManageReducer,
+  loadingReducer
+
 })
 // export const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 

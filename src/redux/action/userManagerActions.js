@@ -6,7 +6,6 @@ import { GET_LIST_USER, SET_USER_DETAIL } from '../types/UserManagerTypes/userMa
 export const getListUserAction = () => async (dispatch) => {
   try {
     const result = await getListUserService()
-    // retussrn result.data.content
     dispatch({
       type: GET_LIST_USER,
       payload: result.data.content

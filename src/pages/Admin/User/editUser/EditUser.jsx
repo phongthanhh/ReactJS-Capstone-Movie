@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -6,10 +7,10 @@ import {
   Input, Select
 } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { GROUP_ID } from '../../../../util/settings'
 
+import { GROUP_ID, USERS_TYPE } from 'constant'
 import { getUserDetailAction, updateUserAction } from '../../../../redux/action/userManagerActions'
-import { MAX_CHAR, MIN_CHAR } from '../../../../util/constants/validateYup'
+import { MAX_CHAR, MIN_CHAR } from '../../../../utils/constants/validateYup'
 
 function EditUser({ match }) {
   const { id } = match.params
@@ -22,7 +23,6 @@ function EditUser({ match }) {
   const dispatch = useDispatch()
 
   const { userDetail } = useSelector((state) => state.userManageReducer)
-  console.log('PhongThanh 🚀 ~> userDetail', userDetail)
 
   useEffect(() => {
     dispatch(getUserDetailAction(id))
@@ -53,8 +53,8 @@ function EditUser({ match }) {
       hoTen: Yup.string().required('Required')
     }),
     onSubmit: (values) => {
-      console.log('value', values)
-      updateUserAction(values)
+      console.log(values)
+      dispatch(updateUserAction(values))
     }
   })
 
@@ -85,7 +85,7 @@ function EditUser({ match }) {
         }}
       >
         <Form.Item label="User Name">
-          <Input disabled="true" name="taiKhoan" onChange={formik.handleChange} value={formik.values.taiKhoan} />
+          <Input name="taiKhoan" onChange={formik.handleChange} value={formik.values.taiKhoan} />
         </Form.Item>
         <Form.Item label="Password">
           <Input.Password name="matKhau" onChange={formik.handleChange} value={formik.values.matKhau} />
@@ -126,18 +126,18 @@ function EditUser({ match }) {
             onChange={handleChangeSelected}
             options={[
               {
-                value: 'KhachHang',
+                value: USERS_TYPE.CUSTOMER,
                 label: 'User'
               },
               {
-                value: 'QuanTri',
+                value: USERS_TYPE.ADMIN,
                 label: 'Admin'
               }
             ]}
           />
         </Form.Item>
         <Form.Item>
-          <button type="submit" className="btn btn-info">UPDATE</button>
+          <button type="submit" className="btn btn-info">Update</button>
         </Form.Item>
       </Form>
     </div>

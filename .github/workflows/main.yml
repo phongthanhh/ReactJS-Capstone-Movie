@@ -1,4 +1,4 @@
-name: Checking...wait a minutes
+name: Check eslint
 on:
   push:
     branches:

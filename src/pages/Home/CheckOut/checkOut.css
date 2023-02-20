@@ -1,0 +1,78 @@
+/* .seat{
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer !important;
+    margin: 7px;
+    background-color: rgb(172,170,169) !important;
+    color: #fff;
+}
+.bookedSeat{
+    background-color: rgb(232, 76, 76) !important;
+    cursor: no-drop;
+}
+
+.bookingSeat{
+    background-color: rgb(18, 176, 18) !important;
+} */
+
+
+
+.seat{
+    border: 3px solid orange;
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
+    border-radius: 5px;
+    margin: 7px;
+    background-color: rgb(232, 224, 220) !important;
+  }
+  .seat::before{
+    border: 3px solid orange;
+    background: orange ;
+  }
+
+  .vipSeat{
+    background-color: rgb(228, 45, 121) !important;
+    width: 35px;
+    height: 35px;
+    margin: 7px;
+    border-radius: 5px;
+    color: #000;
+    cursor: pointer;
+    border: 3px solid orange;
+
+}
+  
+  
+.bookingSeat {
+    background: rgb(74, 207, 69) !important;
+    border: 3px solid rgb(100, 244, 100);
+    color: #000;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 35px;
+    height: 35px;
+    margin: 7px;
+  
+  }
+
+.bookedSeat {
+    border: 3px solid orange;
+    background: orange !important;
+    color: #000;
+    cursor: no-drop !important;
+    border-radius: 5px;
+    width: 35px;
+    height: 35px;
+    margin: 7px;
+  
+  }
+
+  .formBookTicket p {
+    padding: 1em 0;
+    margin: 0;
+  }
+
+ 

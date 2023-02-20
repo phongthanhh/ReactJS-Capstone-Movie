@@ -9,8 +9,8 @@ import {
 } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import dayjs from 'dayjs'
+import { GROUP_ID } from 'constant'
 import { getFilmDetailAction, updateFilmAction } from '../../../../redux/action/movieManagerAction'
-import { GROUP_ID } from '../../../../util/settings'
 
 function EditFilm({ match }) {
   const dispatch = useDispatch()
