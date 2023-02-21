@@ -10,6 +10,7 @@ import {
   SearchOutlined
 } from '@ant-design/icons'
 import { debounce } from 'utils'
+import { ROUTES_NAME } from 'constant'
 import { delFilmAction, getFilmAction } from '../../../redux/action/movieManagerAction'
 
 function Films({ history }) {
@@ -77,7 +78,7 @@ function Films({ history }) {
       dataIndex: 'maPhim',
       render: (text, film) => (
         < >
-          <NavLink className="mr-2" to={`/admin/films/edit/${film.maPhim}`}><EditOutlined /></NavLink>
+          <NavLink className="mr-2" to={`${ROUTES_NAME.ADMIN_FILM_EDIT}/${film.maPhim}`}><EditOutlined /></NavLink>
 
           <span
             onClick={() => {
@@ -95,7 +96,7 @@ function Films({ history }) {
           </span>
           <NavLink
             className="mr-2"
-            to={`/admin/showtimes/${film.maPhim}`}
+            to={`${ROUTES_NAME.ADMIN_SHOWTIMES}/${film.maPhim}`}
             onClick={() => {
               localStorage.setItem('filmParams', JSON.stringify(film))
             }}
@@ -119,7 +120,7 @@ function Films({ history }) {
       <h2>Movie Manager</h2>
       <Button
         onClick={() => {
-          history.push('/admin/films/add-new-film')
+          history.push(ROUTES_NAME.ADMIN_ADD_NEW_FILM)
         }}
         className="mb-3"
         type="primary"

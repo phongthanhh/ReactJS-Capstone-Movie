@@ -11,14 +11,24 @@ import {
   UserOutlined,
   VideoCameraOutlined
 } from '@ant-design/icons'
-import { USER_LOGIN } from 'constant'
+import { ROUTES_NAME, USER_LOGIN } from 'constant'
+import userImg from '../../assets/img/user.png'
 
 const { Header, Sider, Content } = Layout
 
 export default function AdminTemplate(props) {
   const [collapsed, setCollapsed] = useState(false)
 
-  if (!localStorage.getItem(USER_LOGIN)) {
+  let userParam = {}
+
+  if (localStorage.getItem(USER_LOGIN)) {
+    userParam = JSON.parse(localStorage.getItem(USER_LOGIN))
+  } else {
+    alert('bạn k có quyền truy cập trang này')
+    return <Redirect to="/" />
+  }
+
+  if (userParam.maLoaiNguoiDung !== 'QuanTri') {
     alert('bạn k có quyền truy cập trang này')
     return <Redirect to="/" />
   }
@@ -36,15 +46,15 @@ export default function AdminTemplate(props) {
               defaultSelectedKeys={['']}
             >
               <Menu.Item key="1" icon={<UserOutlined />}>
-                <NavLink to="/admin/users">User</NavLink>
+                <NavLink to={ROUTES_NAME.ADMIN_USERS}>User</NavLink>
               </Menu.Item>
               <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-                <NavLink to="/admin/films">Films</NavLink>
+                <NavLink to={ROUTES_NAME.ADMIN_FILMS}>Films</NavLink>
               </Menu.Item>
             </Menu>
           </Sider>
           <Layout className="site-layout">
-            <Header>
+            <Header style={{ position: 'relative' }}>
               {collapsed ? (
                 <MenuUnfoldOutlined
                   style={{ color: 'white' }}
@@ -60,13 +70,30 @@ export default function AdminTemplate(props) {
                   }}
                 />
               )}
+              <div
+                className="d-flex"
+                style={{
+                  position: 'absolute', right: '6em', color: '#fff', top: 0, justifyContent: 'center', alignItems: 'center'
+                }}
+              >
 
+                <span><img style={{ width: '60px', cursor: 'pointer' }} src={userImg} alt="" /></span>
+                <span style={{
+                  fontWeight: 'bold', fontSize: '1em'
+                }}
+                >
+                  {' '}
+                  {userParam.hoTen || ''}
+                </span>
+
+              </div>
             </Header>
             <Content
               style={{
                 margin: '24px 16px',
                 padding: 24,
                 minHeight: '100vh'
+
               }}
             >
               <Row>

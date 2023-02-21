@@ -8,7 +8,7 @@ import {
   DeleteOutlined
 
 } from '@ant-design/icons'
-import { USERS_TYPE } from 'constant'
+import { ROUTES_NAME, USERS_TYPE } from 'constant'
 import { delUserAction, getListUserAction } from '../../../redux/action/userManagerActions'
 
 function User({ history }) {
@@ -85,7 +85,7 @@ function User({ history }) {
       width: '10%',
       render: (text, user) => (
         <>
-          <NavLink className="mr-2" to={`/admin/users/edit-user/${user.taiKhoan}`}><EditOutlined /></NavLink>
+          <NavLink className="mr-2" to={`${ROUTES_NAME.ADMIN_USERS_EDIT}/${user.taiKhoan}`}><EditOutlined /></NavLink>
           <span
             onClick={() => {
               if (window.confirm(`Bạn có muốn xóa ${user.taiKhoan}`)) {
@@ -112,7 +112,7 @@ function User({ history }) {
     <div className="container">
       <h2>User Manage</h2>
       <Button
-        onClick={() => history.push('/admin/users/add-new-user')}
+        onClick={() => history.push(ROUTES_NAME.ADMIN_ADD_NEW_USER)}
         className="mb-3"
         type="primary"
         danger

@@ -56,8 +56,8 @@ function HomeFooter() {
           </div>
         </div>
       </section>
-      <div className="text-center p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-        © 2023 Copyright: Phong Thanh
+      <div className="text-center p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)', color: 'orange' }}>
+        © 2023 Copyright: Phong Thanh - Trần Thanh Quang
       </div>
     </footer>
   )

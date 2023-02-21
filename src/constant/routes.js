@@ -9,5 +9,7 @@ export const ROUTES_NAME = {
   ADMIN_ADD_NEW_FILM: '/admin/films/add-new-film',
   ADMIN_FILM_EDIT: '/admin/films/edit',
   ADMIN_ADD_NEW_USER: '/admin/users/add-new-user',
-  ADMIN_USERS_EDIT: '/admin/users/edit-user'
+  ADMIN_USERS_EDIT: '/admin/users/edit-user',
+  LOGIN: '/login',
+  REGISTER: '/register'
 }

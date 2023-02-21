@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -6,8 +7,8 @@ import {
   Input, Select
 } from 'antd'
 import { useDispatch } from 'react-redux'
-
 import { GROUP_ID, USERS_TYPE } from 'constant'
+import { toast } from 'react-toastify'
 import { addtUserAction } from '../../../../redux/action/userManagerActions'
 import { MAX_CHAR, MIN_CHAR } from '../../../../utils/constants/validateYup'
 
@@ -48,7 +49,6 @@ function AddNewUser() {
         values.maLoaiNguoiDung = USERS_TYPE.CUSTOMER
       }
       console.log(values)
-
       dispatch(addtUserAction(values))
     }
   })
@@ -136,7 +136,7 @@ function AddNewUser() {
           />
         </Form.Item>
         <Form.Item>
-          <button type="submit" className="btn btn-info">ADD</button>
+          <button style={{ color: '#000' }} type="submit" className="btn btn-info">ADD</button>
         </Form.Item>
       </Form>
     </div>

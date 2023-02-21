@@ -12,3 +12,7 @@ export const getUserDetailService = (userCode) => post(`api/QuanLyNguoiDung/LayT
 export const updateUserService = (data) => put('api/QuanLyNguoiDung/CapNhatThongTinNguoiDung', data)
 
 export const delUserService = (userCode) => del(`api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${userCode}`)
+
+export const signInService = (data) => post('api/QuanLyNguoiDung/DangNhap', data)
+
+export const registerService = (data) => post('api/QuanLyNguoiDung/DangKy', data)

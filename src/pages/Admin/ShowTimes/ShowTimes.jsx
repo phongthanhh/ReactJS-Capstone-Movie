@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import {
   Select, DatePicker,
@@ -6,9 +7,12 @@ import {
 } from 'antd'
 import { useFormik } from 'formik'
 import dayjs from 'dayjs'
-import { createShowTimesService, getCumRapService, getHeThongRapService } from '../../../services/theaterService'
+import { createShowTimesAction } from 'redux/action/theaterAction'
+import { useDispatch } from 'react-redux'
+import { getCumRapService, getHeThongRapService } from '../../../services/theaterService'
 
 function ShowTimes(props) {
+  const dispatch = useDispatch()
   let filmParam = {}
   if (localStorage.getItem('filmParams')) filmParam = JSON.parse(localStorage.getItem('filmParams'))
 
@@ -37,8 +41,8 @@ function ShowTimes(props) {
       maRap: '',
       giaVe: 0
     },
-    onSubmit: async (values) => {
-      await createShowTimesService(values)
+    onSubmit: (values) => {
+      dispatch(createShowTimesAction(values))
     }
   })
 

@@ -1,10 +1,21 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
+import HomeCarousel from 'components/HomeCarousel/HomeCarousel'
+import ReactSlick from 'components/ReactSlick/ReactSlick'
+import React, { useEffect } from 'react'
 
-function Home(props) {
+import { useDispatch } from 'react-redux'
+import { getFilmAction } from '../../redux/action/movieManagerAction'
+import HomeTab from './HomeTab/HomeTab'
+
+function Home() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getFilmAction())
+  }, [])
   return (
     <div>
-      Home nè
+      <HomeCarousel />
+      <ReactSlick />
+      <HomeTab />
     </div>
   )
 }
