@@ -1,7 +1,10 @@
+import { history } from 'App'
+import { ACCESS_TOKEN, ROUTES_NAME, USER_LOGIN } from 'constant'
+import { toast } from 'react-toastify'
 import {
-  addUserService, delUserService, getListUserService, getUserDetailService, updateUserService
+  addUserService, delUserService, getListUserService, getUserDetailService, registerService, signInService, updateUserService
 } from '../../services/userManagerServices'
-import { GET_LIST_USER, SET_USER_DETAIL } from '../types/UserManagerTypes/userManagerTypes'
+import { GET_LIST_USER, LOG_IN, SET_USER_DETAIL } from '../types/UserManagerTypes/userManagerTypes'
 
 export const getListUserAction = () => async (dispatch) => {
   try {
@@ -11,17 +14,17 @@ export const getListUserAction = () => async (dispatch) => {
       payload: result.data.content
     })
   } catch (error) {
-    console.log(error.response?.data)
+    toast.error(error.response?.data.content)
   }
 }
 
 export const addtUserAction = (data) => async () => {
   try {
     const result = await addUserService(data)
-    alert('thêm thành công')
+    toast.success('Add User Success !')
     console.log(result.data.content)
   } catch (error) {
-    console.log(error.response?.data)
+    toast.error(error.response?.data.content)
   }
 }
 
@@ -33,26 +36,51 @@ export const getUserDetailAction = (data) => async (dispatch) => {
       payload: result.data.content
     })
   } catch (error) {
-    console.log(error.response?.data)
+    toast.error(error.response?.data.content)
   }
 }
 
 export const updateUserAction = (data) => async () => {
   try {
-    const result = await updateUserService(data)
-    console.log(result.data.content)
-    alert('success')
+    await updateUserService(data)
+    toast.success('Upadte User Success !')
   } catch (error) {
-    console.log(error.response?.data)
+    toast.error(error.response?.data.content)
   }
 }
 
-export const delUserAction = (data) => async () => {
+export const delUserAction = (data) => async (dispatch) => {
   try {
-    const result = await delUserService(data)
-    console.log(result.data.content)
-    alert('del success')
+    await delUserService(data)
+    await dispatch(getListUserAction())
+    toast.success('Del User Success !')
   } catch (error) {
-    console.log(error.response?.data)
+    toast.error(error.response?.data.content)
+  }
+}
+
+export const signInAction = (data) => async (dispatch) => {
+  try {
+    const result = await signInService(data)
+    window.localStorage.setItem(ACCESS_TOKEN, result.data.content.accessToken)
+    window.localStorage.setItem(USER_LOGIN, JSON.stringify(result.data.content))
+    dispatch({
+      type: LOG_IN,
+      payload: result.data.content
+    })
+    history.push(ROUTES_NAME.HOME)
+    toast.success('Sign In Success !')
+  } catch (error) {
+    toast.error(error.response?.data.content)
+  }
+}
+
+export const registerAction = (data) => async () => {
+  try {
+    await registerService(data)
+    toast.success('Sign Up Success !')
+    history.push(ROUTES_NAME.LOGIN)
+  } catch (error) {
+    toast.error(error.response?.data.content)
   }
 }

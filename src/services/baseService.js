@@ -39,13 +39,13 @@ export const del = (url) => axios({
 })
 
 // !TODO: Xóa sau
-export const loginService = async (data) => {
-  const headers = {
-    TokenCybersoft: TOKEN_CYBER
-  }
-  const res = await axios.post('https://movienew.cybersoft.edu.vn/api/QuanLyNguoiDung/DangNhap', data, { headers })
-  return res.data
-}
+// export const loginService = async (data) => {
+//   const headers = {
+//     TokenCybersoft: TOKEN_CYBER
+//   }
+//   const res = await axios.post('https://movienew.cybersoft.edu.vn/api/QuanLyNguoiDung/DangNhap', data, { headers })
+//   return res.data
+// }
 
 // export const apiClient = axios.create({
 //     headers: {

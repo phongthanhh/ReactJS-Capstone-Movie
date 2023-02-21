@@ -3,7 +3,6 @@ import React, { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import screen from '../../../assets/img/screen.png'
 import backGround from '../../../assets/img/background.jpg'
-// import hero from '../../../assets/img/hero-1.jpg'
 import { bookTicketAction, getTicketRoomAction, selectSeatAction } from '../../../redux/action/bookTicketManageAction'
 import './checkOut.css'
 
@@ -38,7 +37,7 @@ function CheckOut(props) {
   }))
 
   return (
-    <div style={{ backgroundImage: `url(${backGround})` }}>
+    <div style={{ backgroundImage: `url(${backGround})`, paddingTop: '180px' }}>
       <div className="container py-5">
         <div className="row">
           <div className="col-9">
@@ -120,7 +119,7 @@ function CheckOut(props) {
             </div>
             <div className="pt-5">
               <button
-                className="btn btn-info w-100"
+                className="btn btn-danger w-100"
                 type="button"
                 onClick={() => {
                   const value = {

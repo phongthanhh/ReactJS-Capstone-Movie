@@ -4,7 +4,6 @@ import './loading.css'
 
 function Loading() {
   const { isLoading } = useSelector((state) => state.loadingReducer)
-  console.log(isLoading)
   return (
     <div>
       {isLoading ? (

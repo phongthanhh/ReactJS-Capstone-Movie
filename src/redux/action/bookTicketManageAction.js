@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import { bookTicketService, getTicketRoomService } from '../../services/bookTicketService'
 import { BOOK_TICKET_SUCCESS, GET_TICKET_ROOM, SELECT_SEAT } from '../types/bookTicketManageTypes/bookTicketManageType'
 import { displayLoadingAction, hideLoadingAction } from './loadingAction'
@@ -12,7 +13,7 @@ export const getTicketRoomAction = (codeShows) => async (dispatch) => {
     })
     dispatch(hideLoadingAction)
   } catch (error) {
-    console.log(error.response?.data)
+    toast.error(error.response?.data.content)
     dispatch(hideLoadingAction)
   }
 }
@@ -20,13 +21,13 @@ export const getTicketRoomAction = (codeShows) => async (dispatch) => {
 export const bookTicketAction = (infoBookTicket) => async (dispatch) => {
   try {
     dispatch(displayLoadingAction)
-    const result = await bookTicketService(infoBookTicket)
+    await bookTicketService(infoBookTicket)
     await dispatch(getTicketRoomAction(infoBookTicket.maLichChieu))
     await dispatch({ type: BOOK_TICKET_SUCCESS })
     dispatch(hideLoadingAction)
-    console.log(result)
+    toast.success('Book Tickets Success !')
   } catch (error) {
-    console.log(error.response?.data)
+    toast.error(error.response?.data.content)
   }
 }
 

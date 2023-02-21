@@ -1,3 +1,5 @@
+import { ROUTES_NAME } from 'constant'
+import { toast } from 'react-toastify'
 import { history } from '../../App'
 import {
   addNewMovieService, delMovieService, getFilmDetailService, getMovieService, updateFilmService
@@ -13,18 +15,17 @@ export const getFilmAction = (nameMovie = '') => async (dispatch) => {
       payload: result.data.content
     })
   } catch (error) {
-    console.log(error.response?.data)
+    toast.error(error.response?.data.content)
   }
 }
 
 export const addNewFilmAction = (formData) => async () => {
   try {
-    const result = await addNewMovieService(formData)
-    console.log(result.data.content)
-    alert('thành công')
-    history.push('/admin/films')
+    await addNewMovieService(formData)
+    toast.success('Add Movie Success !')
+    history.push(ROUTES_NAME.ADMIN_FILMS)
   } catch (error) {
-    console.log(error.response?.data)
+    toast.error(error.response?.data.content)
   }
 }
 
@@ -36,26 +37,25 @@ export const getFilmDetailAction = (codeMovie) => async (dispatch) => {
       payload: result.data.content
     })
   } catch (error) {
-    console.log(error.response?.data)
+    toast.error(error.response?.data.content)
   }
 }
 
 export const updateFilmAction = (formData) => async () => {
   try {
-    const result = await updateFilmService(formData)
-    console.log(result.data.content)
-    alert('cập nhật thành công')
+    await updateFilmService(formData)
+    toast.success('Update User Success !')
   } catch (error) {
-    console.log(error.response?.data)
+    toast.error(error.response?.data.content)
   }
 }
 
-export const delFilmAction = (codeMovie) => async () => {
+export const delFilmAction = (codeMovie) => async (dispatch) => {
   try {
-    const result = await delMovieService(codeMovie)
-    console.log(result.data.content)
-    alert('xóa thành công')
+    await delMovieService(codeMovie)
+    await dispatch(getFilmAction())
+    toast.success('Delete Movie Success !')
   } catch (error) {
-    console.log(error.response?.data)
+    toast.error(error.response?.data.content)
   }
 }

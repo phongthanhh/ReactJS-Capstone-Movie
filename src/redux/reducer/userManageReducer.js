@@ -1,8 +1,17 @@
-import { GET_LIST_USER, SET_USER_DETAIL } from '../types/UserManagerTypes/userManagerTypes'
+import { USER_LOGIN } from 'constant'
+import { GET_LIST_USER, LOG_IN, SET_USER_DETAIL } from '../types/UserManagerTypes/userManagerTypes'
+
+// Check LocalStorage
+let userLogin = null // Chưa có localStorage
+if (localStorage.getItem(USER_LOGIN)) {
+  // Có local => đã login
+  userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
+}
 
 const initialState = {
   arrUser: [],
-  userDetail: {}
+  userDetail: {},
+  userLogin
 }
 
 export const userManageReducer = (state = initialState, { type, payload }) => {
@@ -12,6 +21,9 @@ export const userManageReducer = (state = initialState, { type, payload }) => {
 
     case SET_USER_DETAIL:
       return { ...state, userDetail: payload }
+
+    case LOG_IN:
+      return { ...state, userLogin: payload }
     default:
       return state
   }
