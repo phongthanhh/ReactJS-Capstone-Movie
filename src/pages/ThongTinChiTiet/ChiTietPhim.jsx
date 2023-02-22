@@ -1,5 +1,6 @@
+import { history } from 'App'
 import axios from 'axios'
-import { TOKEN_CYBER } from 'constant'
+import { ROUTES_NAME, TOKEN_CYBER } from 'constant'
 import React, { useEffect, useState } from 'react'
 
 export default function ChiTietPhim(maPhim) {
@@ -52,7 +53,16 @@ export default function ChiTietPhim(maPhim) {
             <button type="button" className="btn btn-success mr-2">Trailer</button>
           </a>
 
-          <button type="button" className="btn btn-danger">Mua vé ngay</button>
+          <button
+            onClick={() => {
+              history.push(`${ROUTES_NAME.CHECKOUT}/46421`)
+            }}
+            type="button"
+            className="btn btn-danger"
+          >
+            Mua vé ngay
+
+          </button>
         </div>
       </div>
     </div>
