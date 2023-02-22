@@ -7,6 +7,7 @@ import Loading from 'components/loading/loading'
 import Login from 'pages/Home/Login/Login'
 import Register from 'pages/Home/Register/Register'
 import { ToastContainer } from 'react-toastify'
+import ThongTinChiTiet from 'pages/ThongTinChiTiet/ThongTinChiTiet'
 import AdminTemplate from './templates/AdminTemplates/AdminTemplate'
 import Dashboard from './pages/Admin/Dashboard/Dashboard'
 import Films from './pages/Admin/Films/Films'
@@ -18,7 +19,6 @@ import AddNewUser from './pages/Admin/User/addNewUser/AddNewUser'
 import EditUser from './pages/Admin/User/editUser/EditUser'
 import HomeTemplate from './templates/HomeTemplates/HomeTemplate'
 import Home from './pages/Home/Home'
-import HomeDetailFilm from './pages/Home/HomeDetailFilm/HomeDetailFilm'
 import CheckOut from './pages/Home/CheckOut/CheckOut'
 
 // Toastify
@@ -45,7 +45,7 @@ function App() {
       <Switch>
         {/* Home */}
         <HomeTemplate path={ROUTES_NAME.HOME} exact component={Home} />
-        <HomeTemplate path={ROUTES_NAME.FILM_DETAIL} exact component={HomeDetailFilm} />
+        <HomeTemplate path={`${ROUTES_NAME.FILM_DETAIL}/:id`} exact component={ThongTinChiTiet} />
         <HomeTemplate path={`${ROUTES_NAME.CHECKOUT}/:id`} exact component={CheckOut} />
 
         {/* ADmin */}

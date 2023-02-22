@@ -1,10 +1,19 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Tooltip } from 'antd'
 import screen from '../../../assets/img/screen.png'
 import backGround from '../../../assets/img/background.jpg'
 import { bookTicketAction, getTicketRoomAction, selectSeatAction } from '../../../redux/action/bookTicketManageAction'
 import './checkOut.css'
+
+const SEATS_TYPE = [
+  { code: 'seat', name: 'Empty Seat' },
+  { code: 'bookingSeat', name: 'Booking Seat' },
+  { code: 'vipSeat', name: 'Vip Seat' },
+  { code: 'bookedSeat', name: 'Booked Seat' },
+  { code: 'seat', name: 'Your Seat' }
+]
 
 function CheckOut(props) {
   const dispatch = useDispatch()
@@ -30,7 +39,14 @@ function CheckOut(props) {
 
     return (
       <>
-        <button onClick={() => onCheckedSeat(seat)} type="button" className={renderClassSeat(seat)}>{seat.stt}</button>
+        <button
+          onClick={() => onCheckedSeat(seat)}
+          type="button"
+          className={renderClassSeat(seat)}
+          disabled={seat.daDat}
+        >
+          {seat.stt}
+        </button>
         {(index + 1) % 16 === 0 ? <br /> : ' ' }
       </>
     )
@@ -48,36 +64,16 @@ function CheckOut(props) {
               {renderSeats}
             </div>
             <div className="mt-5 flex justify-center">
-              <table className="divide-y divide-gray-200 w-2/3">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th>Empty Seat</th>
-                    <th>Booking Seat</th>
-                    <th>Vip Seat</th>
-                    <th>Booked Seat</th>
-                    <th>Your Seat</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <button type="button" className="seat text-center"> </button>
-                    </td>
-                    <td>
-                      <button type="button" className="bookingSeat text-center"> </button>
-                    </td>
-                    <td>
-                      <button type="button" className="vipSeat text-center"> </button>
-                    </td>
-                    <td>
-                      <button type="button" className="bookedSeat text-center"> </button>
-                    </td>
-                    <td>
-                      <button type="button" className="seat text-center"> </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              {SEATS_TYPE.map((seat) => (
+                <div className="w-1/5 flex flex-col items-center">
+                  <p className="m-0 text-white">{seat.name}</p>
+                  <button
+                    aria-label="Seat"
+                    type="button"
+                    className={`${seat.code} text-center`}
+                  />
+                </div>
+              ))}
             </div>
           </div>
           <div className="col-3 text-white formBookTicket" style={{ fontSize: '0.8em' }}>

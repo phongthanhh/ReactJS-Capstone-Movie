@@ -1,7 +1,9 @@
 export const ROUTES_NAME = {
+  // HOME
   HOME: '/home',
-  FILM_DETAIL: '/film-detail',
+  FILM_DETAIL: '/home/film-detail',
   CHECKOUT: '/checkout',
+  // ADMIN
   ADMIN: '/admin',
   ADMIN_FILMS: '/admin/films',
   ADMIN_USERS: '/admin/users',

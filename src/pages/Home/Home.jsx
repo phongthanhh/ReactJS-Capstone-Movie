@@ -1,23 +1,12 @@
-import HomeCarousel from 'components/HomeCarousel/HomeCarousel'
-import ReactSlick from 'components/ReactSlick/ReactSlick'
-import React, { useEffect } from 'react'
+import React from 'react'
+import CarouselMovie from './CarouselMovie'
+import DanhSachPhim from './DanhSachPhim'
 
-import { useDispatch } from 'react-redux'
-import { getFilmAction } from '../../redux/action/movieManagerAction'
-import HomeTab from './HomeTab/HomeTab'
-
-function Home() {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(getFilmAction())
-  }, [])
+export default function Home(props) {
   return (
-    <div>
-      <HomeCarousel />
-      <ReactSlick />
-      <HomeTab />
-    </div>
+    <>
+      <CarouselMovie />
+      <DanhSachPhim props={props} />
+    </>
   )
 }
-
-export default Home
