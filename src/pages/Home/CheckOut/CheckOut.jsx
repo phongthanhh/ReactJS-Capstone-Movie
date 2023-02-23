@@ -30,14 +30,14 @@ function CheckOut(props) {
 
     return (
       <>
-        <button onClick={() => onCheckedSeat(seat)} type="button" className={renderClassSeat(seat)}>{seat.stt}</button>
+        <button disabled={seat.daDat} onClick={() => onCheckedSeat(seat)} type="button" className={renderClassSeat(seat)}>{seat.stt}</button>
         {(index + 1) % 16 === 0 ? <br /> : ' ' }
       </>
     )
   }))
 
   return (
-    <div style={{ backgroundImage: `url(${backGround})`, paddingTop: '180px' }}>
+    <div style={{ backgroundImage: `url(${backGround})` }}>
       <div className="container py-5">
         <div className="row">
           <div className="col-9">

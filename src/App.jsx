@@ -45,7 +45,7 @@ function App() {
       <Switch>
         {/* Home */}
         <HomeTemplate path={ROUTES_NAME.HOME} exact component={Home} />
-        <HomeTemplate path={ROUTES_NAME.FILM_DETAIL} exact component={HomeDetailFilm} />
+        <HomeTemplate path={`${ROUTES_NAME.FILM_DETAIL}/:id`} exact component={HomeDetailFilm} />
         <HomeTemplate path={`${ROUTES_NAME.CHECKOUT}/:id`} exact component={CheckOut} />
 
         {/* ADmin */}

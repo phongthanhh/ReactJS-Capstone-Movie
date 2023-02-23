@@ -13,9 +13,6 @@ function HomeHeader() {
   return (
     <div
       className="header"
-      style={{
-        position: 'absolute', top: 0, right: 0, width: '100%', zIndex: 10
-      }}
     >
       <header
         className="d-flex"
@@ -33,7 +30,7 @@ function HomeHeader() {
               <NavLink style={{ padding: '20px 30px', textDecoration: 'none' }} to="/home">Home</NavLink>
             </li>
             <li>
-              <NavLink style={{ padding: '20px 30px', textDecoration: 'none' }} to="/contact">Contact</NavLink>
+              <NavLink style={{ padding: '20px 30px', textDecoration: 'none' }} to={ROUTES_NAME.ADMIN}>ADMIN</NavLink>
             </li>
           </ul>
 
