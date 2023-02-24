@@ -1,7 +1,7 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { USER_LOGIN } from 'constant'
+import { toast } from 'react-toastify'
 import screen from '../../../assets/img/screen.png'
 import backGround from '../../../assets/img/background.jpg'
 import { bookTicketAction, getTicketRoomAction, selectSeatAction } from '../../../redux/action/bookTicketManageAction'
@@ -23,11 +23,11 @@ function CheckOut(props) {
 
   useEffect(() => {
     dispatch(getTicketRoomAction(props.match.params.id))
-  }, [])
+  }, [props.match.params.id, dispatch])
 
-  const onCheckedSeat = (seat) => {
+  const onCheckedSeat = useCallback((seat) => {
     dispatch(selectSeatAction(seat))
-  }
+  }, [dispatch])
 
   const renderSeats = useMemo(() => danhSachGhe?.map((seat, index) => {
     const renderClassSeat = (chair = {}) => {
@@ -36,14 +36,31 @@ function CheckOut(props) {
       if (chair.loaiGhe === 'Vip') return 'vipSeat'
       return 'seat'
     }
-
     return (
       <>
-        <button disabled={seat.daDat} onClick={() => onCheckedSeat(seat)} type="button" className={renderClassSeat(seat)} />
+        <button
+          aria-label="seat"
+          disabled={seat.daDat}
+          onClick={() => onCheckedSeat(seat)}
+          type="button"
+          className={renderClassSeat(seat)}
+        />
         {(index + 1) % 16 === 0 ? <br /> : ' ' }
       </>
     )
-  }))
+  }), [danhSachGhe, onCheckedSeat])
+
+  const handleBookTicket = () => {
+    if (!seatsSelecting.length) {
+      toast.error('Vui lòng chọn ghế')
+      return
+    }
+    const value = {
+      maLichChieu: props.match.params.id,
+      danhSachVe: seatsSelecting
+    }
+    dispatch(bookTicketAction(value))
+  }
 
   return (
     <div style={{ backgroundImage: `url(${backGround})` }}>
@@ -110,16 +127,9 @@ function CheckOut(props) {
               <button
                 className="btn btn-danger w-100"
                 type="button"
-                onClick={() => {
-                  const value = {
-                    maLichChieu: props.match.params.id,
-                    danhSachVe: seatsSelecting
-                  }
-                  dispatch(bookTicketAction(value))
-                }}
+                onClick={handleBookTicket}
               >
                 Book Ticket
-
               </button>
             </div>
           </div>
