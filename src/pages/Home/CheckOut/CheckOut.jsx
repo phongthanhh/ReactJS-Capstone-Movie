@@ -1,15 +1,24 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { USER_LOGIN } from 'constant'
 import screen from '../../../assets/img/screen.png'
 import backGround from '../../../assets/img/background.jpg'
 import { bookTicketAction, getTicketRoomAction, selectSeatAction } from '../../../redux/action/bookTicketManageAction'
 import './checkOut.css'
 
+const SEATS_TYPE = [
+  { code: 'seat', name: 'Ghế trống' },
+  { code: 'bookingSeat', name: 'Đang đặt' },
+  { code: 'vipSeat', name: 'Ghế Vip' },
+  { code: 'bookedSeat', name: 'Ghế đã đặt' }
+]
+
 function CheckOut(props) {
   const dispatch = useDispatch()
   const { ticketRoomDetail, seatsSelecting } = useSelector((state) => state.bookTicketManageReducer)
-
+  let userLogin = {}
+  if (localStorage.getItem(USER_LOGIN)) userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
   const { thongTinPhim, danhSachGhe } = ticketRoomDetail
 
   useEffect(() => {
@@ -30,7 +39,7 @@ function CheckOut(props) {
 
     return (
       <>
-        <button disabled={seat.daDat} onClick={() => onCheckedSeat(seat)} type="button" className={renderClassSeat(seat)}>{seat.stt}</button>
+        <button disabled={seat.daDat} onClick={() => onCheckedSeat(seat)} type="button" className={renderClassSeat(seat)} />
         {(index + 1) % 16 === 0 ? <br /> : ' ' }
       </>
     )
@@ -42,42 +51,18 @@ function CheckOut(props) {
         <div className="row">
           <div className="col-9">
             <div className="screen">
-              <img style={{ width: '91%' }} src={screen} alt="" />
+              <img style={{ width: '100%' }} src={screen} alt="" />
             </div>
-            <div>
+            <div style={{ textAlign: 'center', paddingTop: '2em' }}>
               {renderSeats}
             </div>
             <div className="mt-5 flex justify-center">
-              <table className="divide-y divide-gray-200 w-2/3">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th>Empty Seat</th>
-                    <th>Booking Seat</th>
-                    <th>Vip Seat</th>
-                    <th>Booked Seat</th>
-                    <th>Your Seat</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <button type="button" className="seat text-center"> </button>
-                    </td>
-                    <td>
-                      <button type="button" className="bookingSeat text-center"> </button>
-                    </td>
-                    <td>
-                      <button type="button" className="vipSeat text-center"> </button>
-                    </td>
-                    <td>
-                      <button type="button" className="bookedSeat text-center"> </button>
-                    </td>
-                    <td>
-                      <button type="button" className="seat text-center"> </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              {SEATS_TYPE.map((seat) => (
+                <div className="w-1/5 flex flex-col items-center">
+                  <p className="m-0 text-white">{seat.name}</p>
+                  <button aria-label="Seat" type="button" className={`${seat.code} text-center`} />
+                </div>
+              ))}
             </div>
           </div>
           <div className="col-3 text-white formBookTicket" style={{ fontSize: '0.8em' }}>
@@ -87,35 +72,39 @@ function CheckOut(props) {
             >
               {thongTinPhim?.tenPhim}
             </h2>
-            <div className="d-flex py-3">
+            <div className="d-flex py-3 infoFilm">
               <span>Địa điểm:</span>
               <span>{thongTinPhim?.diaChi}</span>
             </div>
-            <div className="py-3">
-              Ngày chiếu:
-              {thongTinPhim?.ngayChieu}
-              {' '}
-              -
-              {' '}
-              {thongTinPhim?.gioChieu}
+            <div className="py-3 infoFilm">
+              <p> Ngày chiếu:</p>
+              <p>
+                {' '}
+                {thongTinPhim?.ngayChieu}
+                {' '}
+                -
+                {thongTinPhim?.gioChieu}
+              </p>
             </div>
             <div className="py-3">{thongTinPhim?.tenRap}</div>
-            <div className="d-flex py-3">
-              <div className="w-4/5">
+            <div className="d-flex py-3 infoFilm">
+              <div style={{ display: 'flex', flexWrap: 'wrap' }} className="w-4/5">
                 <span className="text-danger mr-1">Ghế</span>
                 {seatsSelecting?.map((seat) => <span className="text-green-500 mr-1">{seat.tenGhe}</span>)}
               </div>
               <div className="col-span-1">
                 <span className="text-success">
-                  {seatsSelecting.reduce((total, seat) => total + seat.giaVe, 0)}
+                  {seatsSelecting.reduce((total, seat) => total + seat.giaVe, 0).toLocaleString('en-US', { style: 'currency', currency: 'VND' })}
                 </span>
               </div>
             </div>
-            <div className="py-3">
-              <span>Email:tangthanh@gmail.com</span>
+            <div className="py-3 infoFilm">
+              <p>Email:</p>
+              <p>{userLogin.email}</p>
             </div>
-            <div className="py-3">
-              <span>Phone:02130123812</span>
+            <div className="py-3 infoFilm">
+              <p>Phone:</p>
+              <p>{userLogin.soDT}</p>
             </div>
             <div className="pt-5">
               <button

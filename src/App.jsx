@@ -7,6 +7,7 @@ import Loading from 'components/loading/loading'
 import Login from 'pages/Home/Login/Login'
 import Register from 'pages/Home/Register/Register'
 import { ToastContainer } from 'react-toastify'
+import Info from 'pages/Home/Info/Info'
 import AdminTemplate from './templates/AdminTemplates/AdminTemplate'
 import Dashboard from './pages/Admin/Dashboard/Dashboard'
 import Films from './pages/Admin/Films/Films'
@@ -47,6 +48,7 @@ function App() {
         <HomeTemplate path={ROUTES_NAME.HOME} exact component={Home} />
         <HomeTemplate path={`${ROUTES_NAME.FILM_DETAIL}/:id`} exact component={HomeDetailFilm} />
         <HomeTemplate path={`${ROUTES_NAME.CHECKOUT}/:id`} exact component={CheckOut} />
+        <HomeTemplate path={ROUTES_NAME.INFO} exact component={Info} />
 
         {/* ADmin */}
         <AdminTemplate path={ROUTES_NAME.ADMIN} exact component={Dashboard} />

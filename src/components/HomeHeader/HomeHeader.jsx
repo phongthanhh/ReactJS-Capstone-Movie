@@ -1,17 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import './HomeHeader.css'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  CaretDownOutlined, InfoCircleOutlined, UserSwitchOutlined,
+  LogoutOutlined
+} from '@ant-design/icons'
 import { history } from 'App'
-import { ROUTES_NAME } from 'constant'
-import logo from '../../assets/img/logo.png'
+import { ROUTES_NAME, USER_LOGIN } from 'constant'
+import { SIGN_OUT } from 'redux/types/UserManagerTypes/userManagerTypes'
+import { HeaderCP } from './HomeHeaderCSS'
+import logo from '../../assets/img/logo1.png'
 import userImg from '../../assets/img/user.png'
 
 function HomeHeader() {
   const { userLogin } = useSelector((state) => state.userManageReducer)
-
+  const [showDrop, setShowDrop] = useState(false)
+  console.log(showDrop)
+  const dispatch = useDispatch()
   return (
-    <div
+    <HeaderCP
       className="header"
     >
       <header
@@ -29,12 +36,9 @@ function HomeHeader() {
             <li>
               <NavLink style={{ padding: '20px 30px', textDecoration: 'none' }} to="/home">Home</NavLink>
             </li>
-            <li>
-              <NavLink style={{ padding: '20px 30px', textDecoration: 'none' }} to={ROUTES_NAME.ADMIN}>ADMIN</NavLink>
-            </li>
           </ul>
 
-          {userLogin == null ? (
+          {userLogin === null ? (
             <div className="d-flex">
               <button
                 onClick={() => {
@@ -49,24 +53,77 @@ function HomeHeader() {
             </div>
           ) : (
             <div
-              className="d-flex"
-              style={{
-                color: '#fff', justifyContent: 'center', alignItems: 'center'
-              }}
+              className="d-flex userLogin"
             >
-              <span><img style={{ width: '60px', cursor: 'pointer' }} src={userImg} alt="" /></span>
-              <span style={{
-                fontWeight: 'bold', fontSize: '1em'
-              }}
+              <div
+                className="userLogin__info d-flex"
+                style={{
+                  color: '#fff', justifyContent: 'center', alignItems: 'center'
+                }}
               >
-                {' '}
-                {userLogin.hoTen || ''}
-              </span>
+                <span><img style={{ width: '60px', cursor: 'pointer' }} src={userImg} alt="" /></span>
+                <span style={{
+                  fontWeight: 'bold', fontSize: '1em'
+                }}
+                >
+                  {' '}
+                  {userLogin.hoTen || ''}
+                </span>
+              </div>
+              <div className="userLogin__dropdown">
+                <div
+                  aria-hidden="true"
+                  onBlur={() => {
+                    setShowDrop(false)
+                  }}
+                  onClick={() => {
+                    setShowDrop(!showDrop)
+                  }}
+                  className="dropdown__select"
+                >
+                  {showDrop ? (
+                    <CaretDownOutlined
+                      style={{ transform: ' rotate(-180deg)' }}
+                    />
+                  )
+                    : <CaretDownOutlined style={{ transform: ' rotate(0deg)' }} />}
+                </div>
+                {showDrop ? (
+                  <div className="dropdown__list">
+                    <ul>
+                      <li aria-hidden="true" onClick={() => history.push(ROUTES_NAME.INFO)}>
+                        <span className="dropdown__list__icon"><InfoCircleOutlined /></span>
+                        Thông tin tài khoản
+                      </li>
+                      <li aria-hidden="true" onClick={() => history.push(ROUTES_NAME.ADMIN)}>
+                        <span className="dropdown__list__icon">
+                          <UserSwitchOutlined />
+                        </span>
+                        Admin
+                      </li>
+                      <li
+                        aria-hidden="true"
+                        onClick={() => {
+                          localStorage.removeItem(USER_LOGIN)
+                          dispatch({ type: SIGN_OUT })
+                          history.go(0)
+                        }}
+                      >
+                        <span className="dropdown__list__icon">
+                          <LogoutOutlined />
+                        </span>
+                        Đăng xuất
+                      </li>
+                    </ul>
+                  </div>
+                ) : null}
+
+              </div>
             </div>
           )}
         </nav>
       </header>
-    </div>
+    </HeaderCP>
 
   )
 }

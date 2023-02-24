@@ -7,8 +7,9 @@ import {
   Input, Select
 } from 'antd'
 import { useDispatch } from 'react-redux'
-import { GROUP_ID, USERS_TYPE } from 'constant'
+import { GROUP_ID, ROUTES_NAME, USERS_TYPE } from 'constant'
 import { toast } from 'react-toastify'
+import { history } from 'App'
 import { addtUserAction } from '../../../../redux/action/userManagerActions'
 import { MAX_CHAR, MIN_CHAR } from '../../../../utils/constants/validateYup'
 
@@ -50,6 +51,7 @@ function AddNewUser() {
       }
       console.log(values)
       dispatch(addtUserAction(values))
+      history.push(ROUTES_NAME.ADMIN_USERS)
     }
   })
 

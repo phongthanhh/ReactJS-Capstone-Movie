@@ -1,32 +1,21 @@
-/* .seat{
-    width: 35px;
-    height: 35px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer !important;
-    margin: 7px;
-    background-color: rgb(172,170,169) !important;
-    color: #fff;
-}
-.bookedSeat{
-    background-color: rgb(232, 76, 76) !important;
-    cursor: no-drop;
-}
 
-.bookingSeat{
-    background-color: rgb(18, 176, 18) !important;
-} */
+.infoFilm{
+display: flex;
+justify-content: space-between;
 
+}
+.infoFilm p {
+  font-size: 1em;
+}
 
 
 .seat{
-    border: 3px solid orange;
     width: 35px;
     height: 35px;
     font-size: 12px;
     border-radius: 5px;
-    margin: 7px;
-    background-color: rgb(232, 224, 220) !important;
+    margin: 2px;
+    background-color: #3e515d !important;
   }
   .seat::before{
     border: 3px solid orange;
@@ -37,12 +26,11 @@
     background-color: rgb(228, 45, 121) !important;
     width: 35px;
     height: 35px;
-    margin: 7px;
+    margin: 2px;
+
     border-radius: 5px;
     color: #000;
     cursor: pointer;
-    border: 3px solid orange;
-
 }
   
   
@@ -54,7 +42,8 @@
     border-radius: 5px;
     width: 35px;
     height: 35px;
-    margin: 7px;
+    margin: 2px;
+
   
   }
 
@@ -66,7 +55,7 @@
     border-radius: 5px;
     width: 35px;
     height: 35px;
-    margin: 7px;
+    margin: 2px;
   
   }
 
@@ -83,5 +72,3 @@ backdrop-filter: blur( 3px );
 border-radius: 10px;
 border: 1px solid rgba( 255, 255, 255, 0.18 );
   }
-
- 

@@ -8,3 +8,5 @@ export const getCumRapService = (theaterCode) => get(`api/QuanLyRap/LayThongTinC
 export const createShowTimesService = (data) => post('api/QuanLyDatVe/TaoLichChieu', data)
 
 export const getThongTinHeThongRapService = () => get(`api/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=${GROUP_ID}`)
+
+export const getLichChieuPhimService = (movieCode) => get(`api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${movieCode}`)

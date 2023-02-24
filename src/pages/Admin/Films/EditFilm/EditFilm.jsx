@@ -9,7 +9,8 @@ import {
 } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import dayjs from 'dayjs'
-import { GROUP_ID } from 'constant'
+import { GROUP_ID, ROUTES_NAME } from 'constant'
+import { history } from 'App'
 import { getFilmDetailAction, updateFilmAction } from '../../../../redux/action/movieManagerAction'
 
 function EditFilm({ match }) {
@@ -45,7 +46,6 @@ function EditFilm({ match }) {
 
     },
     onSubmit: (values) => {
-      console.log('EDITvALUE', values)
       const formData = new FormData()
       // eslint-disable-next-line no-restricted-syntax
       for (const key in values) {
@@ -56,6 +56,7 @@ function EditFilm({ match }) {
         }
       }
       dispatch(updateFilmAction(formData))
+      history.push(ROUTES_NAME.ADMIN_FILMS)
     }
   })
 

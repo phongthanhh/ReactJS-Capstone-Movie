@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import HomeFilm from 'components/HomeFilm/HomeFilm'
 import React, { useState, useMemo } from 'react'
-
 import { useSelector } from 'react-redux'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Tabs } from 'antd'
@@ -12,10 +11,6 @@ const SWIPER_TABS = {
 }
 
 function SwiperCarousel() {
-  const onChange = (key) => {
-    console.log(key)
-  }
-
   const { moviesShowing, moviesUpComing } = useSelector((state) => state.movieManagerReducer)
   const [currentTab, setCurrentTab] = useState(SWIPER_TABS.SHOWING)
 
@@ -43,8 +38,9 @@ function SwiperCarousel() {
 
   return (
     <div className="container py-5">
-      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+      <Tabs defaultActiveKey="1" items={items} />
       <Swiper
+        autoplay
         spaceBetween={15}
         slidesPerView={4}
         onSwiper={(swiper) => console.log(swiper)}

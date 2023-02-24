@@ -80,6 +80,34 @@ background: #111827;
 .infoLichChieu{
     
 }
-   
-   
+.info__rap{
+display: flex;
+padding: 10px;
+align-items: center;
+p{
+    margin: 0 0 0 15px;
+    color: rgb(139, 197, 65);
+    font-weight: bold;
+}
+}
+.info__gioChieu{
+padding: 10px;
+.btn__rap{
+    outline: none!important;
+    display: block;
+    float: left;
+    padding: 7px;
+    margin: 0 10px 10px 0;
+    border-radius: 4px;
+    border: 1px solid #e4e4e4;
+    color: #9b9b9b;
+    font-weight: 600;
+    background-color: #fff;
+    font-size: 16px;
+    min-width: 25%;
+    &:hover{
+    color: rgb(139,197,65);
+    }
+}
+}
 `

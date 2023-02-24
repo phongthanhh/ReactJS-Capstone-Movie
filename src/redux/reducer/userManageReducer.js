@@ -1,5 +1,7 @@
 import { USER_LOGIN } from 'constant'
-import { GET_LIST_USER, LOG_IN, SET_USER_DETAIL } from '../types/UserManagerTypes/userManagerTypes'
+import {
+  GET_LIST_USER, LOG_IN, SET_USER_DETAIL, SIGN_OUT
+} from '../types/UserManagerTypes/userManagerTypes'
 
 // Check LocalStorage
 let userLogin = null // Chưa có localStorage
@@ -24,6 +26,8 @@ export const userManageReducer = (state = initialState, { type, payload }) => {
 
     case LOG_IN:
       return { ...state, userLogin: payload }
+    case SIGN_OUT:
+      return { ...state, userLogin: {} }
     default:
       return state
   }

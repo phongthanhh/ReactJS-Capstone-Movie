@@ -8,7 +8,8 @@ import {
 } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { GROUP_ID, USERS_TYPE } from 'constant'
+import { GROUP_ID, ROUTES_NAME, USERS_TYPE } from 'constant'
+import { history } from 'App'
 import { getUserDetailAction, updateUserAction } from '../../../../redux/action/userManagerActions'
 import { MAX_CHAR, MIN_CHAR } from '../../../../utils/constants/validateYup'
 
@@ -53,8 +54,8 @@ function EditUser({ match }) {
       hoTen: Yup.string().required('Required')
     }),
     onSubmit: (values) => {
-      console.log(values)
       dispatch(updateUserAction(values))
+      history.push(ROUTES_NAME.ADMIN_USERS)
     }
   })
 
