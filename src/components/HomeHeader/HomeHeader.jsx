@@ -106,7 +106,6 @@ function HomeHeader() {
                         onClick={() => {
                           localStorage.removeItem(USER_LOGIN)
                           dispatch({ type: SIGN_OUT })
-                          history.go(0)
                         }}
                       >
                         <span className="dropdown__list__icon">

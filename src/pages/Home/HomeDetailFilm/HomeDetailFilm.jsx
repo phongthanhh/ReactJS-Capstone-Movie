@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-indent */
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getFilmDetailAction } from 'redux/action/movieManagerAction'
@@ -6,12 +5,12 @@ import { Rate, Tabs } from 'antd'
 import { ROUTES_NAME } from 'constant'
 import { history } from 'App'
 import { getLichChieuPhimService } from 'services/theaterService'
+import dayjs from 'dayjs'
 import { HomeDetail } from './DetailCss'
 import '../../../assets/css/index.css'
 
 function HomeDetailFilm(props) {
   const [showtimes, setShowtimes] = useState('')
-  console.log(showtimes)
   const { heThongRapChieu } = showtimes
 
   const dispatch = useDispatch()
@@ -79,29 +78,29 @@ function HomeDetailFilm(props) {
               src={item.logo}
             />,
             key: index,
-            children: <div>
-              {item.cumRapChieu?.map((itemChild) => (
-                <div>
-                  <div className="info__rap">
-                    <img src={item.logo} width={50} alt="" />
-                    <p>{itemChild.tenCumRap}</p>
-                  </div>
-                  <div className="info__gioChieu">
-                  {itemChild.lichChieuPhim.map((lich) => (
-                          <button
-                            onClick={() => history.push(`${ROUTES_NAME.CHECKOUT}/${lich.maLichChieu}`)}
-                            className="btn__rap"
-                            type="button"
-                          >
-{lich.ngayChieuGioChieu}
+            children: (
+              <div>
+                {item.cumRapChieu?.map((itemChild) => (
+                  <div>
+                    <div className="info__rap">
+                      <img src={item.logo} width={50} alt="" />
+                      <p>{itemChild.tenCumRap}</p>
+                    </div>
+                    <div className="info__gioChieu">
+                      {itemChild.lichChieuPhim.map((lich) => (
+                        <button
+                          onClick={() => history.push(`${ROUTES_NAME.CHECKOUT}/${lich.maLichChieu}`)}
+                          className="btn__rap"
+                          type="button"
+                        >
+                          {dayjs(lich.ngayChieuGioChieu).format('hh:mm')}
 
-                          </button>
-                  ))}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
-              {' '}
-                      </div>
+                ))}
+              </div>)
           }))}
         />
       </div>

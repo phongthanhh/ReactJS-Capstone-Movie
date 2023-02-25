@@ -5,24 +5,28 @@ import {
   addUserService, delUserService, getListUserService, getUserDetailService, registerService, signInService, updateUserService
 } from '../../services/userManagerServices'
 import { GET_LIST_USER, LOG_IN, SET_USER_DETAIL } from '../types/UserManagerTypes/userManagerTypes'
+import { displayLoadingAction, hideLoadingAction } from './loadingAction'
 
 export const getListUserAction = () => async (dispatch) => {
   try {
+    dispatch(displayLoadingAction)
     const result = await getListUserService()
     dispatch({
       type: GET_LIST_USER,
       payload: result.data.content
     })
+    dispatch(hideLoadingAction)
   } catch (error) {
     toast.error(error.response?.data.content)
   }
 }
 
-export const addtUserAction = (data) => async () => {
+export const addtUserAction = (data) => async (dispatch) => {
   try {
-    const result = await addUserService(data)
+    dispatch(displayLoadingAction)
+    await addUserService(data)
     toast.success('Add User Success !')
-    console.log(result.data.content)
+    dispatch(hideLoadingAction)
   } catch (error) {
     toast.error(error.response?.data.content)
   }
@@ -30,11 +34,13 @@ export const addtUserAction = (data) => async () => {
 
 export const getUserDetailAction = (data) => async (dispatch) => {
   try {
+    dispatch(displayLoadingAction)
     const result = await getUserDetailService(data)
     dispatch({
       type: SET_USER_DETAIL,
       payload: result.data.content
     })
+    dispatch(hideLoadingAction)
   } catch (error) {
     toast.error(error.response?.data.content)
   }

@@ -1,6 +1,14 @@
 import styled from 'styled-components'
 
 export const TabCp = styled.div`
+.ant-tabs-nav{
+   max-height: 500px;
+   overflow-y: auto;
+}
+.ant-tabs-content-holder{
+   max-height: 500px;
+   overflow-y: auto;
+}
 .rapName{
    display: flex;
    padding: 0;
@@ -30,17 +38,19 @@ export const TabCp = styled.div`
    flex-wrap:wrap;
    margin: 5px 0;
    .film__giochieu__detail{
+      width: 100px;
+      height: 40px;
       outline: none!important;
     display: block;
     float: left;
-    padding: 10px;
+    padding: 7px 30px;
     margin: 0 10px 10px 0;
     border-radius: 4px;
     border: 1px solid #e4e4e4;
     color: rgb(16, 143, 62);
     font-weight: 600;
     background-color: #fff;
-    font-size: 12px;
+    font-size: 15px;
     min-width: 25%;
    }
 }

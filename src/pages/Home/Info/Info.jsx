@@ -18,6 +18,7 @@ function Info() {
 
   const { userDetail } = useSelector((state) => state.userManageReducer)
   const { thongTinDatVe } = userDetail
+  console.log(thongTinDatVe)
 
   const renderHistory = useMemo(() => thongTinDatVe?.map((item) => (
     <tr className="hover:bg-gray-700 border-gray-700 border-b group text-opacity-100 cursor-pointer relative

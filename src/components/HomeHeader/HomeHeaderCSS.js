@@ -10,7 +10,7 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 padding: 1em;
 color: #fff;
 border-top: none;
-z-index: 999;
+z-index: 30;
 display: flex;
 .userLogin{
     .userLogin__dropdown{

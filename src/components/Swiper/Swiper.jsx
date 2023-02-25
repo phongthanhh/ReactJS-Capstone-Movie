@@ -1,9 +1,10 @@
-/* eslint-disable no-unused-vars */
 import HomeFilm from 'components/HomeFilm/HomeFilm'
 import React, { useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Tabs } from 'antd'
+import { Autoplay, Pagination, Navigation } from 'swiper'
+import { SwiperTab } from './SwipeCSS'
 
 const SWIPER_TABS = {
   SHOWING: 'showing',
@@ -26,28 +27,49 @@ function SwiperCarousel() {
   const items = [
     {
       key: '1',
-      label: <button type="button" onClick={() => setCurrentTab(SWIPER_TABS.SHOWING)} className="btn btn-danger text-white">Đang Chiếu</button>,
-      children: 'Content of Tab Pane 1'
+      label: (
+        <button
+          type="button"
+          onClick={() => setCurrentTab(SWIPER_TABS.SHOWING)}
+          className="btn__show text-white"
+        >
+          Đang Chiếu
+        </button>)
     },
     {
       key: '2',
-      label: <button type="button" onClick={() => setCurrentTab(SWIPER_TABS.UPCOMING)} className="btn btn-danger text-white">Sắp Chiếu</button>,
-      children: 'Content of Tab Pane 2'
+      label: (
+        <button
+          type="button"
+          onClick={() => setCurrentTab(SWIPER_TABS.UPCOMING)}
+          className="btn__show text-white"
+        >
+          Sắp Chiếu
+        </button>)
     }
   ]
 
   return (
-    <div className="container py-5">
+    <SwiperTab className="container py-5">
       <Tabs defaultActiveKey="1" items={items} />
       <Swiper
-        autoplay
+        modules={[Autoplay, Pagination, Navigation]}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false
+        }}
+        pagination={{
+          clickable: true
+        }}
+        navigation
         spaceBetween={15}
         slidesPerView={4}
+        slidesPerColumnFill="row"
         onSwiper={(swiper) => console.log(swiper)}
       >
         {renderFilms}
       </Swiper>
-    </div>
+    </SwiperTab>
   )
 }
 

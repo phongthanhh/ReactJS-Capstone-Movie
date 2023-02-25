@@ -1,18 +1,35 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import './loading.css'
+import { LoadingCp } from './loadingCSS'
 
 function Loading() {
   const { isLoading } = useSelector((state) => state.loadingReducer)
   return (
-    <div>
+    <>
       {isLoading ? (
-        <div className="loading">
-          <h2 className="text-white">Loading...</h2>
+        <div
+          style={{
+            position: 'fixed',
+            height: '100vh',
+            width: '100vw',
+            display: 'grid',
+            placeItems: 'center',
+            background: '#04020a',
+            zIndex: 50
+          }}
+          className="main"
+        >
+          <LoadingCp className="loading">
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+          </LoadingCp>
         </div>
       ) : ''}
-    </div>
-
+      <span className="visibility: hidden" />
+    </>
   )
 }
 

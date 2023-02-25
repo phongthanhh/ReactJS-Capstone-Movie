@@ -1,11 +1,17 @@
-import React, { useEffect, useMemo, useCallback } from 'react'
+import React, {
+  useEffect, useMemo, useCallback, useState
+} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { USER_LOGIN } from 'constant'
+import { ROUTES_NAME, USER_LOGIN } from 'constant'
 import { toast } from 'react-toastify'
+import { Redirect } from 'react-router'
+import { history } from 'App'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import screen from '../../../assets/img/screen.png'
 import backGround from '../../../assets/img/background.jpg'
 import { bookTicketAction, getTicketRoomAction, selectSeatAction } from '../../../redux/action/bookTicketManageAction'
-import './checkOut.css'
+import { CheckOutDiv } from './checkOutCSS'
 
 const SEATS_TYPE = [
   { code: 'seat', name: 'Ghế trống' },
@@ -17,6 +23,7 @@ const SEATS_TYPE = [
 function CheckOut(props) {
   const dispatch = useDispatch()
   const { ticketRoomDetail, seatsSelecting } = useSelector((state) => state.bookTicketManageReducer)
+  console.log(ticketRoomDetail)
   let userLogin = {}
   if (localStorage.getItem(USER_LOGIN)) userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
   const { thongTinPhim, danhSachGhe } = ticketRoomDetail
@@ -62,9 +69,79 @@ function CheckOut(props) {
     dispatch(bookTicketAction(value))
   }
 
+  const delayResend = 300
+  const [delay, setDelay] = useState(+delayResend)
+  const minutes = Math.floor(delay / 60)
+  const seconds = Math.floor(delay % 60)
+  const MySwal = withReactContent(Swal)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDelay(delay - 1)
+    }, 1000)
+
+    if (delay === 0) {
+      clearInterval(timer)
+      MySwal.fire({
+        title: 'Thời gian giữ ghế đã hết!',
+        text: 'Bạn muốn đặt vé lại?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Đặt vé lại !',
+        cancelButtonText: 'Trang chủ',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) return history.go(0)
+        return history.push(ROUTES_NAME.HOME)
+      })
+    }
+    return () => {
+      clearInterval(timer)
+    }
+  })
+
+  let userParam = {}
+
+  if (localStorage.getItem(USER_LOGIN)) {
+    userParam = JSON.parse(localStorage.getItem(USER_LOGIN))
+  } else {
+    alert('bạn k có quyền truy cập trang này')
+    return <Redirect to="/" />
+  }
+
+  if (userParam.maLoaiNguoiDung !== 'QuanTri') {
+    alert('bạn k có quyền truy cập trang này')
+    return <Redirect to="/" />
+  }
+
   return (
-    <div style={{ backgroundImage: `url(${backGround})` }}>
-      <div className="container py-5">
+    <CheckOutDiv style={{ backgroundImage: `url(${backGround})` }}>
+      <div className="container py-3">
+        <div className="row">
+          <div className="col-9">
+            <div className="info">
+              <div className="info__rap">
+                {/* <img width={50} style={{ height: 50 }} src={ticketRoomDetail !== null ? ticketRoomDetail?.thongTinPhim?.hinhAnh : ''} alt="img" />
+                <div className="rap__detail">
+                  <p className="rap__detail__name">
+                    {ticketRoomDetail?.thongTinPhim.tenCumRap}
+                  </p>
+                  <div className="rap__detail__adress">
+                    {ticketRoomDetail.thongTinPhim?.diaChi}
+                  </div>
+                </div> */}
+              </div>
+              <div className="info__timer">
+                <h2 className="timer__title">Thời gian giữ ghế</h2>
+                <div className="timer__cowndown">
+                  {minutes}
+                  :
+                  {seconds}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="row">
           <div className="col-9">
             <div className="screen">
@@ -73,11 +150,11 @@ function CheckOut(props) {
             <div style={{ textAlign: 'center', paddingTop: '2em' }}>
               {renderSeats}
             </div>
-            <div className="mt-5 flex justify-center">
+            <div className="mt-3 flex justify-center">
               {SEATS_TYPE.map((seat) => (
                 <div className="w-1/5 flex flex-col items-center">
-                  <p className="m-0 text-white">{seat.name}</p>
                   <button aria-label="Seat" type="button" className={`${seat.code} text-center`} />
+                  <p className="m-0 mt-1 text-white">{seat.name}</p>
                 </div>
               ))}
             </div>
@@ -125,7 +202,7 @@ function CheckOut(props) {
             </div>
             <div className="pt-5">
               <button
-                className="btn btn-danger w-100"
+                className="btn btn-success w-100"
                 type="button"
                 onClick={handleBookTicket}
               >
@@ -135,7 +212,7 @@ function CheckOut(props) {
           </div>
         </div>
       </div>
-    </div>
+    </CheckOutDiv>
   )
 }
 

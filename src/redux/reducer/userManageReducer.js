@@ -27,7 +27,7 @@ export const userManageReducer = (state = initialState, { type, payload }) => {
     case LOG_IN:
       return { ...state, userLogin: payload }
     case SIGN_OUT:
-      return { ...state, userLogin: {} }
+      return { ...state, userLogin: null }
     default:
       return state
   }

@@ -24,7 +24,7 @@ function HomeTab() {
             tabPosition="left"
             items={rap.lstCumRap.map((rapChild, indexChild) => ({
               label: (
-                <div className="text-white rapName">
+                <div style={{ maxHeight: '500px', overflowY: 'auto' }} className="text-white rapName">
                   <img src={rap.logo} width={60} alt="" />
                   <div className="rapChild__info">
                     <p className="rapChil__name">{rapChild.tenCumRap}</p>
