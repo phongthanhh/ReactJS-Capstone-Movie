@@ -20,11 +20,9 @@ export const getTicketRoomAction = (codeShows) => async (dispatch) => {
 
 export const bookTicketAction = (infoBookTicket) => async (dispatch) => {
   try {
-    dispatch(displayLoadingAction)
     await bookTicketService(infoBookTicket)
     await dispatch(getTicketRoomAction(infoBookTicket.maLichChieu))
     await dispatch({ type: BOOK_TICKET_SUCCESS })
-    dispatch(hideLoadingAction)
     toast.success('Book Tickets Success !')
   } catch (error) {
     toast.error(error.response?.data.content)

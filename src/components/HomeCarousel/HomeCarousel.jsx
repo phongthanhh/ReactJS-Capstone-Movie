@@ -3,7 +3,7 @@ import { Carousel } from 'antd'
 import { getCarouSelService } from 'services/carouselService'
 
 const contentStyle = {
-  height: '700px',
+  height: '600px',
   color: '#fff',
   lineHeight: '160px',
   textAlign: 'center',
@@ -16,7 +16,6 @@ const contentStyle = {
 }
 function HomeCarousel() {
   const [banner, setBanner] = useState([])
-  console.log(banner)
   useEffect(() => {
     const fetchData = async () => {
       const data = await getCarouSelService()
@@ -26,7 +25,7 @@ function HomeCarousel() {
   }, [])
 
   const renderBanner = () => banner?.map((item) => (
-    <div>
+    <div style={{ position: 'relative', zIndex: 10 }}>
       <h3 style={{ ...contentStyle, background: `url(${item.hinhAnh})` }}><img className="w-full opacity-0" src={item.hinhAnh} alt="" /></h3>
     </div>
   ))

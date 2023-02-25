@@ -3,6 +3,7 @@ import thunk from 'redux-thunk'
 import { bookTicketManageReducer } from './reducer/bookTicketManageReducer'
 import { loadingReducer } from './reducer/loadingReducer'
 import { movieManagerReducer } from './reducer/movieManagerReducer'
+import { theaterReducer } from './reducer/theaterReducers'
 import { userManageReducer } from './reducer/userManageReducer'
 
 const rootReducer = combineReducers({
@@ -10,7 +11,8 @@ const rootReducer = combineReducers({
   movieManagerReducer,
   userManageReducer,
   bookTicketManageReducer,
-  loadingReducer
+  loadingReducer,
+  theaterReducer
 
 })
 // export const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
